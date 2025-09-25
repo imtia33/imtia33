@@ -72,7 +72,7 @@ export default function Home() {
                 <div className="lg:hidden w-48 h-48 mx-auto mt-18 mb-10">
                   <div className="w-full h-full rounded-full overflow-hidden border-4 border-white shadow-xl">
                     <img 
-                      src="https://scontent-sin2-3.xx.fbcdn.net/v/t39.30808-6/470188051_1539874426696401_2069158741001139087_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=a5f93a&_nc_eui2=AeGhtbGLAtAH9HWHtmNZmh6-CWXo9JaNMS8JZej0lo0xL8_85Cw_GIbEGtO6EVXCdSSGtPup21rPp3BZWrM1dTfo&_nc_ohc=46obbkoDN74Q7kNvwEwKuZ3&_nc_oc=AdmQT-9p2mVtoAbLg2CGLX8KHy5dLlVfkOOdjPhbm8vE_KxH__Uu27yY5Sws6hl-45oJ4_FxYHZVPmIJ6tLpz6Y2&_nc_zt=23&_nc_ht=scontent-sin2-3.xx&_nc_gid=gW7hL7c02lSSR2LC3G05SQ&oh=00_AfZCrwsAraqkDrTvUuz5G8LxemT8txeqGbZaxtKDoX-sEw&oe=68CE2835" 
+                      src="/profile.png" 
                       alt="Imtiaz Royhan" 
                       className="w-full h-full object-cover"
                     />
@@ -106,7 +106,7 @@ export default function Home() {
              <div className="hidden lg:block  w-78 h-78">
                 <div className="w-full h-full rounded-full overflow-hidden border-4 border-white shadow-xl">
                   <img 
-                    src="https://scontent-sin2-3.xx.fbcdn.net/v/t39.30808-6/470188051_1539874426696401_2069158741001139087_n.jpg?_nc_cat=107&ccb=1-7&_nc_sid=a5f93a&_nc_eui2=AeGhtbGLAtAH9HWHtmNZmh6-CWXo9JaNMS8JZej0lo0xL8_85Cw_GIbEGtO6EVXCdSSGtPup21rPp3BZWrM1dTfo&_nc_ohc=46obbkoDN74Q7kNvwEwKuZ3&_nc_oc=AdmQT-9p2mVtoAbLg2CGLX8KHy5dLlVfkOOdjPhbm8vE_KxH__Uu27yY5Sws6hl-45oJ4_FxYHZVPmIJ6tLpz6Y2&_nc_zt=23&_nc_ht=scontent-sin2-3.xx&_nc_gid=gW7hL7c02lSSR2LC3G05SQ&oh=00_AfZCrwsAraqkDrTvUuz5G8LxemT8txeqGbZaxtKDoX-sEw&oe=68CE2835" 
+                    src="/profile.png" 
                     alt="Imtiaz Royhan" 
                     className="w-full h-full object-cover"
                   />
