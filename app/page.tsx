@@ -150,32 +150,32 @@ export default function Home() {
                     { 
                       name: "React Native", 
                       description: "Expertly building cross-platform mobile applications for iOS and Android, focusing on performance and native feel.", 
-                      experience: "5+ years of experience, including 10+ shipped production apps." 
+                      experience: "" 
                     },
                     { 
                       name: "Appwrite", 
                       description: "Experienced in using Appwrite as a Backend-as-a-Service for authentication, realtime databases, and serverless functions.", 
-                      experience: "2 years utilizing Appwrite for multiple full-stack development projects." 
+                      experience: "" 
                     },
                     { 
                       name: "Javascript", 
-                      description: "Deep understanding of modern JavaScript (ES6+), asynchronous programming, and performance optimization.", 
-                      experience: "8+ years, core language expertise." 
+                      description: "Good understanding of modern JavaScript (ES6+), asynchronous programming, and performance optimization.", 
+                      experience: "" 
                     },
                     { 
                       name: "OpenStreetMaps", 
                       description: "Skilled in integrating and customizing OpenStreetMaps and related libraries (Leaflet, Mapbox GL JS) for web and mobile mapping solutions.", 
-                      experience: "3 years experience with geo-spatial data and rendering." 
+                      experience: "" 
                     },
                     { 
                       name: "Node.js", 
-                      description: "Building scalable backend services, REST APIs, and microservices using Express and other Node.js frameworks.", 
-                      experience: "6+ years in backend development and deployment." 
+                      description: "Building scalable backend services, REST APIs, and microservices Node.js frameworks.", 
+                      experience: "" 
                     },
                     { 
                       name: "Mapping Algorithms", 
                       description: "Proficient in implementing algorithms like Dijkstra's, A*, and custom routing logic for pathfinding and distance calculation.", 
-                      experience: "4 years focused on optimization and efficiency in navigation systems." 
+                      experience: "" 
                     }
                   ].map((skill) => (
                     <SkillTag key={skill.name} skill={skill} />

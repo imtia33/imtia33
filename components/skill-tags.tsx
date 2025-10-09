@@ -37,10 +37,11 @@ export const SkillTag = ({ skill }: { skill: { name: string; description: string
           <p className="text-sm text-foreground/90 mb-4 leading-relaxed">
             {skill.description}
           </p>
-          
+          {skill.experience&&(
           <div className="text-xs font-semibold text-muted-foreground border-t border-border/70 pt-2 mt-2">
             Experience: <span className="text-primary font-normal">{skill.experience}</span>
           </div>
+          )}
           
           <div 
             className={`absolute top-[-8px] left-5 w-0 h-0 border-l-8 border-l-transparent border-r-8 border-r-transparent border-b-8 ${arrowClasses}`}
