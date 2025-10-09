@@ -1,11 +1,31 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
+import { SkillTag, ToolTag } from "@/components/skill-tags"
 
 export default function Home() {
   const [isDark, setIsDark] = useState(true)
   const [activeSection, setActiveSection] = useState("")
   const sectionsRef = useRef<(HTMLElement | null)[]>([])
+
+  // Function to get descriptions for each tool
+  const getToolDescription = (tool: string) => {
+    const descriptions: Record<string, string> = {
+      "JavaScript": "Building interactive web applications with modern ES6+ features and frameworks",
+      "Git": "Version control for collaborative development and code management",
+      "Docker": "Containerizing applications for consistent development and deployment environments",
+      "Figma": "Designing user interfaces and prototyping web and mobile applications",
+      "Tailwind CSS": "Rapid UI development using utility-first CSS framework",
+      "React Native Maps": "Implementing interactive maps and location-based features in mobile apps",
+      "Appwrite": "Building backend services and authentication for web and mobile applications",
+      "Vive code fixer": "Debugging and optimizing code performance issues",
+      "Expo": "Accelerating React Native development with managed workflow tools",
+      "Reanimated": "Creating smooth animations and gestures in React Native applications"
+    };
+    
+    return descriptions[tool] || `Proficient in ${tool} for building high-quality applications`;
+  };
 
   useEffect(() => {
     document.documentElement.classList.toggle("dark", isDark)
@@ -125,14 +145,40 @@ export default function Home() {
 
               <div className="space-y-4">
                 <div className="text-sm text-muted-foreground font-mono">FOCUS</div>
-                <div className="flex flex-wrap gap-2">
-                  {["React Native", "Appwrite", "Javascript", "OpenStreetMaps", "Node.js","Mapping Algorithms"].map((skill) => (
-                    <span
-                      key={skill}
-                      className="px-3 py-1 text-xs border border-border rounded-full hover:border-primary/50 transition-colors duration-300"
-                    >
-                      {skill}
-                    </span>
+                <div className="flex flex-wrap gap-2 relative min-h-24">
+                  {[
+                    { 
+                      name: "React Native", 
+                      description: "Expertly building cross-platform mobile applications for iOS and Android, focusing on performance and native feel.", 
+                      experience: "5+ years of experience, including 10+ shipped production apps." 
+                    },
+                    { 
+                      name: "Appwrite", 
+                      description: "Experienced in using Appwrite as a Backend-as-a-Service for authentication, realtime databases, and serverless functions.", 
+                      experience: "2 years utilizing Appwrite for multiple full-stack development projects." 
+                    },
+                    { 
+                      name: "Javascript", 
+                      description: "Deep understanding of modern JavaScript (ES6+), asynchronous programming, and performance optimization.", 
+                      experience: "8+ years, core language expertise." 
+                    },
+                    { 
+                      name: "OpenStreetMaps", 
+                      description: "Skilled in integrating and customizing OpenStreetMaps and related libraries (Leaflet, Mapbox GL JS) for web and mobile mapping solutions.", 
+                      experience: "3 years experience with geo-spatial data and rendering." 
+                    },
+                    { 
+                      name: "Node.js", 
+                      description: "Building scalable backend services, REST APIs, and microservices using Express and other Node.js frameworks.", 
+                      experience: "6+ years in backend development and deployment." 
+                    },
+                    { 
+                      name: "Mapping Algorithms", 
+                      description: "Proficient in implementing algorithms like Dijkstra's, A*, and custom routing logic for pathfinding and distance calculation.", 
+                      experience: "4 years focused on optimization and efficiency in navigation systems." 
+                    }
+                  ].map((skill) => (
+                    <SkillTag key={skill.name} skill={skill} />
                   ))}
                 </div>
               </div>
@@ -182,27 +228,27 @@ export default function Home() {
                   tech: ["C++", "QT"],
                 },
                
-              ].map((job, index) => (
+              ].map((Project, index) => (
                 <div
                   key={index}
                   className="group grid lg:grid-cols-12 gap-4 sm:gap-8 py-6 sm:py-8 border-b border-border/50 hover:border-border transition-colors duration-500"
                 >
                   <div className="lg:col-span-2">
                     <div className="text-xl sm:text-2xl font-light text-muted-foreground group-hover:text-foreground transition-colors duration-500">
-                      {job.year}
+                      {Project.year}
                     </div>
                   </div>
 
                   <div className="lg:col-span-6 space-y-3">
                     <div>
-                      <h3 className="text-lg sm:text-xl font-medium">{job.role}</h3>
-                      <div className="text-muted-foreground">{job.company}</div>
+                      <h3 className="text-lg sm:text-xl font-medium">{Project.role}</h3>
+                      <div className="text-muted-foreground">{Project.company}</div>
                     </div>
-                    <p className="text-muted-foreground leading-relaxed max-w-lg">{job.description}</p>
+                    <p className="text-muted-foreground leading-relaxed max-w-lg">{Project.description}</p>
                   </div>
 
                   <div className="lg:col-span-4 flex flex-wrap gap-2 lg:justify-end mt-2 lg:mt-0">
-                    {job.tech.map((tech) => (
+                    {Project.tech.map((tech) => (
                       <span
                         key={tech}
                         className="px-2 py-1 text-xs text-muted-foreground rounded group-hover:border-muted-foreground/50 transition-colors duration-500"
@@ -281,25 +327,50 @@ export default function Home() {
             {/* Tools & Technologies */}
             <div className="space-y-6">
               <h3 className="text-xl font-medium text-muted-foreground">Tools & Technologies</h3>
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-3 relative min-h-24">
                 {[
-                  "JavaScript",
-                  "Git",
-                  "Docker",
-                  "Figma",
-                  "Tailwind CSS",
-                  "React Native Maps",
-                  "Appwrite",
-                  "Vive code fixer",
-                  "Expo",
-                  "Reanimated",
+                  { 
+                    name: "JavaScript", 
+                    description: "Building interactive web applications with modern ES6+ features and frameworks" 
+                  },
+                  { 
+                    name: "Git", 
+                    description: "Version control for collaborative development and code management" 
+                  },
+                  { 
+                    name: "Docker", 
+                    description: "Containerizing applications for consistent development and deployment environments" 
+                  },
+                  { 
+                    name: "Figma", 
+                    description: "Designing user interfaces and prototyping web and mobile applications" 
+                  },
+                  { 
+                    name: "Tailwind CSS", 
+                    description: "Rapid UI development using utility-first CSS framework" 
+                  },
+                  { 
+                    name: "React Native Maps", 
+                    description: "Implementing interactive maps and location-based features in mobile apps" 
+                  },
+                  { 
+                    name: "Appwrite", 
+                    description: "Building backend services and authentication for web and mobile applications" 
+                  },
+                  { 
+                    name: "Vive code fixer", 
+                    description: "Debugging and optimizing code performance issues" 
+                  },
+                  { 
+                    name: "Expo", 
+                    description: "Accelerating React Native development with managed workflow tools" 
+                  },
+                  { 
+                    name: "Reanimated", 
+                    description: "Creating smooth animations and gestures in React Native applications" 
+                  },
                 ].map((tool) => (
-                  <span
-                    key={tool}
-                    className="px-3 py-2 text-sm border border-border rounded-full hover:border-primary/50 transition-colors duration-300"
-                  >
-                    {tool}
-                  </span>
+                  <ToolTag key={tool.name} tool={tool} />
                 ))}
               </div>
             </div>
@@ -404,8 +475,21 @@ export default function Home() {
           </div>
         </footer>
       </main>
-
+      
       <div className="fixed bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background via-background/80 to-transparent pointer-events-none"></div>
+      
+      {/* Minimal CSS: only the keyframes required for the "Scale Pop" animation */}
+      <style>{`
+        /* Scale Pop animation provides the entrance for Shadow Pop */
+        @keyframes scalePop {
+          from { opacity: 0; transform: scale(0.9); }
+          to { opacity: 1; transform: scale(1); }
+        }
+        .animate-scalePop {
+          animation: scalePop 0.2s ease-out forwards;
+        }
+      `}</style>
     </div>
   )
 }
+
