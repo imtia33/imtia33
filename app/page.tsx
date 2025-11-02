@@ -1,13 +1,16 @@
 "use client"
 
 import { useEffect, useRef, useState } from "react"
+import Lenis from "lenis"
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip"
 import { SkillTag, ToolTag } from "@/components/skill-tags"
+import { GitHubContributionsChart } from "@/components/github-contributions-chart"
 
 export default function Home() {
   const [isDark, setIsDark] = useState(true)
   const [activeSection, setActiveSection] = useState("")
   const sectionsRef = useRef<(HTMLElement | null)[]>([])
+  const lenisRef = useRef<Lenis | null>(null)
 
   // Function to get descriptions for each tool
   const getToolDescription = (tool: string) => {
@@ -31,28 +34,61 @@ export default function Home() {
     document.documentElement.classList.toggle("dark", isDark)
   }, [isDark])
 
+  // Initialize Lenis smooth scrolling
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("animate-fade-in-up")
-            setActiveSection(entry.target.id)
-          }
-        })
-      },
-      { threshold: 0.3, rootMargin: "0px 0px -20% 0px" },
-    )
-
-    sectionsRef.current.forEach((section) => {
-      if (section) observer.observe(section)
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      orientation: 'vertical',
+      gestureOrientation: 'vertical',
+      smoothWheel: true,
+      wheelMultiplier: 1,
+      touchMultiplier: 2,
+      infinite: false,
     })
 
-    return () => observer.disconnect()
+    lenisRef.current = lenis
+
+    function raf(time: number) {
+      lenis.raf(time)
+      requestAnimationFrame(raf)
+    }
+
+    requestAnimationFrame(raf)
+
+    // Handle scroll events for active section
+    lenis.on('scroll', ({ scroll, limit }: { scroll: number; limit: number }) => {
+      // Update active section based on scroll position
+      sectionsRef.current.forEach((section) => {
+        if (section) {
+          const rect = section.getBoundingClientRect()
+          const viewportMiddle = window.innerHeight / 2
+          
+          if (rect.top <= viewportMiddle && rect.bottom >= viewportMiddle) {
+            setActiveSection(section.id)
+          }
+        }
+      })
+    })
+
+    return () => {
+      lenis.destroy()
+    }
   }, [])
+
 
   const toggleTheme = () => {
     setIsDark(!isDark)
+  }
+
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId)
+    if (element && lenisRef.current) {
+      lenisRef.current.scrollTo(element, {
+        offset: -80,
+        duration: 1.5,
+      })
+    }
   }
 
   return (
@@ -62,14 +98,14 @@ export default function Home() {
           {["intro", "work", "skills", "connect"].map((section) => (
             <div key={section} className="group relative flex items-center h-8">
               <button
-                onClick={() => document.getElementById(section)?.scrollIntoView({ behavior: "smooth" })}
+                onClick={() => scrollToSection(section)}
                 className={`w-2 h-8 rounded-full transition-all duration-500 group-hover:w-24 group-hover:bg-primary/10 ${
                   activeSection === section ? "bg-primary" : "bg-muted-foreground/30 hover:bg-muted-foreground/60"
                 }`}
                 aria-label={`Navigate to ${section}`}
               />
               <button
-                onClick={() => document.getElementById(section)?.scrollIntoView({ behavior: "smooth" })}
+                onClick={() => scrollToSection(section)}
                 className="absolute left-8 h-8 flex items-center opacity-0 group-hover:opacity-100 transition-all duration-300 text-sm text-foreground capitalize whitespace-nowrap cursor-pointer"
               >
                 {section}
@@ -83,7 +119,7 @@ export default function Home() {
         <header
           id="intro"
           ref={(el) => { sectionsRef.current[0] = el; }}
-          className="min-h-screen flex items-center opacity-0"
+          className="min-h-screen flex items-center"
         >
           <div className="grid lg:grid-cols-5 gap-12 sm:gap-16 w-full">
             <div className="lg:col-span-3 space-y-6 sm:space-y-8">
@@ -123,7 +159,7 @@ export default function Home() {
                 </div>
               </div>
             </div>
-             <div className="hidden lg:block  w-78 h-78">
+             <div className="hidden lg:block w-78 h-78">
                 <div className="w-full h-full rounded-full overflow-hidden border-4 border-white shadow-xl">
                   <img 
                     src="/profile.png" 
@@ -146,7 +182,7 @@ export default function Home() {
               <div className="space-y-4">
                 <div className="text-sm text-muted-foreground font-mono">FOCUS</div>
                 <div className="flex flex-wrap gap-2 relative min-h-24">
-                  {[
+                    {[
                     { 
                       name: "React Native", 
                       description: "Expertly building cross-platform mobile applications for iOS and Android, focusing on performance and native feel.", 
@@ -177,19 +213,41 @@ export default function Home() {
                       description: "Proficient in implementing algorithms like Dijkstra's, A*, and custom routing logic for pathfinding and distance calculation.", 
                       experience: "" 
                     }
-                  ].map((skill) => (
-                    <SkillTag key={skill.name} skill={skill} />
+                  ].map((skill, index) => (
+                    <div key={skill.name}>
+                      <SkillTag skill={skill} />
+                    </div>
                   ))}
                 </div>
               </div>
             </div>
           </div>
+          
         </header>
+        
+        <section>
+           <h2 className="text-3xl sm:text-4xl font-light mb-2 mt-5">GitHub Activity</h2>
+        <div className="w-full overflow-x-auto scrollbar-hide mt-5">
+          <div className="min-w-[340px] md:min-w-0">
+            <GitHubContributionsChart username="imtia33" />
+          </div>
+        </div>
+        <a
+                href="https://github.com/imtia33"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-muted-foreground hover:text-primary transition-colors duration-300"
+              >
+                View Profile →
+        </a>
+            
+              
+        </section>
 
         <section
           id="work"
           ref={(el) => { sectionsRef.current[1] = el; }}
-          className="min-h-screen py-20 sm:py-32 opacity-0"
+          className="min-h-screen py-20 sm:py-32"
         >
           <div className="space-y-12 sm:space-y-16">
             <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
@@ -266,7 +324,7 @@ export default function Home() {
         <section
           id="skills"
           ref={(el) => { sectionsRef.current[2] = el; }}
-          className="min-h-screen py-20 sm:py-32 opacity-0"
+          className="min-h-screen py-20 sm:py-32"
         >
           <div className="space-y-12 sm:space-y-16">
             <h2 className="text-3xl sm:text-4xl font-light">Skills</h2>
@@ -276,7 +334,7 @@ export default function Home() {
               <div className="space-y-6">
                 <h3 className="text-xl font-medium text-muted-foreground">Technical Skills</h3>
                 <div className="space-y-4">
-                  {[
+                    {[
                     { name: "React Native", level: 80 },
                     { name: "JavaScript", level: 84 },
                     { name: "Node.js", level: 75 },
@@ -291,7 +349,7 @@ export default function Home() {
                       </div>
                       <div className="w-full bg-muted rounded-full h-2">
                         <div
-                          className="bg-primary h-2 rounded-full transition-all duration-1000 ease-out"
+                          className="progress-bar bg-primary h-2 rounded-full"
                           style={{ width: `${skill.level}%` }}
                         />
                       </div>
@@ -380,7 +438,7 @@ export default function Home() {
         <section 
           id="connect" 
           ref={(el) => { sectionsRef.current[3] = el; }} 
-          className="py-20 sm:py-32 opacity-0"
+          className="py-20 sm:py-32"
         >
           <div className="grid lg:grid-cols-2 gap-12 sm:gap-16">
             <div className="space-y-6 sm:space-y-8">
@@ -478,15 +536,32 @@ export default function Home() {
       
       <div className="fixed bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background via-background/80 to-transparent pointer-events-none"></div>
       
-      {/* Minimal CSS: only the keyframes required for the "Scale Pop" animation */}
+      {/* CSS for Lenis smooth scroll */}
       <style>{`
-        /* Scale Pop animation provides the entrance for Shadow Pop */
-        @keyframes scalePop {
-          from { opacity: 0; transform: scale(0.9); }
-          to { opacity: 1; transform: scale(1); }
+        /* Lenis smooth scroll wrapper */
+        html.lenis {
+          height: auto;
         }
-        .animate-scalePop {
-          animation: scalePop 0.2s ease-out forwards;
+        .lenis.lenis-smooth {
+          scroll-behavior: auto !important;
+        }
+        .lenis.lenis-smooth [data-lenis-prevent] {
+          overscroll-behavior: contain;
+        }
+        .lenis.lenis-stopped {
+          overflow: hidden;
+        }
+        .lenis.lenis-scrolling iframe {
+          pointer-events: none;
+        }
+
+        /* Hide scrollbar for GitHub chart container while maintaining scrollability */
+        .scrollbar-hide {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
         }
       `}</style>
     </div>
