@@ -13,7 +13,6 @@ I’m **Imtiaz Royhan** — a curious and creative **software engineer** from Ba
 - 🌱 Exploring **DevOps**, **self-hosted tools**, and **backend optimization** using **Appwrite**.  
 - 🧠 Strong believer in _clean architecture_ and _developer experience_.  
 
-📫 You can find me on [LinkedIn](#) or in the discussions tab of my repos — I’m always open to collaboration.  
 
 ---
 
