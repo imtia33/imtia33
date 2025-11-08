@@ -1,4 +1,4 @@
-﻿
+﻿![Intro](202511082116-1.gif)
 # Hey 👋  
 I’m **Imtiaz Royhan** — a curious and creative **software engineer** from Bangladesh 🇧🇩  
 
