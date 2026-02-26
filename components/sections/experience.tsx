@@ -36,17 +36,15 @@ export function Experience({ setRef }: ExperienceProps) {
                 onClick={() => toggleExpand(index)}
               >
                 <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full overflow-hidden bg-muted flex items-center justify-center border border-border/50">
-                    <img
+                  <img
                       src={exp.logo}
                       alt={exp.company}
-                      className="w-11 h-11 object-cover"
+                      className="w-11 h-11 object-cover rounded-full"
                       onError={(e) => {
                         (e.target as HTMLImageElement).src =
                           "https://avatar.vercel.sh/" + exp.company;
                       }}
                     />
-                  </div>
                   <div>
                     <h3 className="text-xl font-regular flex items-center gap-1 group-hover:text-primary transition-colors">
                       {exp.company}{" "}

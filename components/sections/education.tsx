@@ -23,17 +23,15 @@ export function Education({ setRef }: EducationProps) {
               className="group flex items-start justify-between py-2"
             >
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-full overflow-hidden bg-muted flex items-center justify-center border border-border/50">
-                  <img
+                <img
                     src={edu.logo}
                     alt={edu.school}
-                    className="w-11 h-11 object-cover"
+                    className="w-11 h-11 object-cover rounded-full"
                     onError={(e) => {
                       (e.target as HTMLImageElement).src =
                         "https://avatar.vercel.sh/" + edu.school;
                     }}
                   />
-                </div>
                 <div>
                   <h3 className="text-xl font-normal group-hover:text-primary transition-colors">
                     {edu.school}

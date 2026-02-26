@@ -74,6 +74,10 @@ export const projects = [
     description:
       "A github assistant web app that helps you contribute better in github by documenting your PULL request, Reviewing PRs etc.",
     tech: ["React Native", "Appwrite", "JavaScript"],
+    links: {
+      github: "https://github.com/imtia33/PRIM",
+      live: "https://prim.appwrite.network/",
+    },
     image: "/images/prim.png",
   },
 
@@ -84,6 +88,9 @@ export const projects = [
     description:
       "An android and IOS based app for blood donation, helping connect donors with those in need.",
     tech: ["React Native", "Appwrite", "JavaScript"],
+    links: {
+      github: "https://github.com/imtia33/Crimson",
+    },
     image: "/images/crimson.png",
   },
   {
@@ -93,6 +100,9 @@ export const projects = [
     description:
       "A local routing app helping people travel easily with directions, maps, and local vehicle fare data.",
     tech: ["React Native", "Appwrite", "JavaScript"],
+    links: {
+      github: "https://github.com/imtia33/TravelMate",
+    },
     image: "/images/travx.png",
   },
   {
@@ -102,6 +112,9 @@ export const projects = [
     description:
       "A secure and efficient chat application developed using C++ and the QT framework.",
     tech: ["C++", "QT"],
+    links: {
+      github: "https://github.com/imtia33/Projects/tree/main/pro%20back",
+    },
     image: "/images/chat-app.png",
   },
 ];
