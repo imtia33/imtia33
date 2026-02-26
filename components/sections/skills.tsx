@@ -1,0 +1,101 @@
+"use client";
+
+import { techStack } from "@/constants/data";
+
+interface SkillsProps {
+  setRef: (el: HTMLElement | null) => void;
+}
+
+const AstroIcon = () => (
+  <svg
+    width={20}
+    height={20}
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 85 107"
+  >
+    <path
+      fill="#fff"
+      d="M27.59 91.136c-4.834-4.418-6.246-13.703-4.232-20.429 3.492 4.241 8.33 5.584 13.342 6.343 7.737 1.17 15.336.732 22.523-2.804.822-.405 1.582-.943 2.48-1.489.675 1.957.85 3.932.615 5.943-.573 4.896-3.01 8.678-6.885 11.545-1.55 1.147-3.19 2.172-4.79 3.253-4.917 3.323-6.247 7.22-4.4 12.888.044.139.084.277.183.614-2.51-1.124-4.344-2.76-5.742-4.911-1.475-2.27-2.177-4.78-2.214-7.498-.019-1.322-.019-2.656-.197-3.96-.434-3.178-1.926-4.601-4.737-4.683-2.884-.084-5.166 1.699-5.771 4.507-.046.216-.113.429-.18.68l.004.001Z"
+    />
+    <path
+      fill="url(#astro_icon_dark-a)"
+      d="M27.59 91.136c-4.834-4.418-6.246-13.703-4.232-20.429 3.492 4.241 8.33 5.584 13.342 6.343 7.737 1.17 15.336.732 22.523-2.804.822-.405 1.582-.943 2.48-1.489.675 1.957.85 3.932.615 5.943-.573 4.896-3.01 8.678-6.885 11.545-1.55 1.147-3.19 2.172-4.79 3.253-4.917 3.323-6.247 7.22-4.4 12.888.044.139.084.277.183.614-2.51-1.124-4.344-2.76-5.742-4.911-1.475-2.27-2.177-4.78-2.214-7.498-.019-1.322-.019-2.656-.197-3.96-.434-3.178-1.926-4.601-4.737-4.683-2.884-.084-5.166 1.699-5.771 4.507-.046.216-.113.429-.18.68l.004.001Z"
+    />
+    <path
+      fill="#fff"
+      d="M0 69.587s14.314-6.973 28.668-6.973L39.49 29.12c.405-1.62 1.588-2.72 2.924-2.72 1.335 0 2.518 1.1 2.924 2.72L56.16 62.614c17 0 28.668 6.973 28.668 6.973S60.514 3.352 60.467 3.219C59.769 1.261 58.591 0 57.003 0H27.827c-1.588 0-2.718 1.261-3.464 3.22C24.311 3.35 0 69.586 0 69.586Z"
+    />
+    <defs>
+      <linearGradient
+        id="astro_icon_dark-a"
+        x1="22.47"
+        x2="69.145"
+        y1="107"
+        y2="84.947"
+        gradientUnits="userSpaceOnUse"
+      >
+        <stop stopColor="#D83333" />
+        <stop offset="1" stopColor="#F041FF" />
+      </linearGradient>
+    </defs>
+  </svg>
+);
+
+const TechIcon = ({ icon, invert }: { icon: string; invert?: boolean }) => {
+  if (icon === "__ASTRO__") return <AstroIcon />;
+
+  const [prefix, name] = icon.split(":");
+  const iconUrl = `https://api.iconify.design/${prefix}/${name}.svg`;
+
+  return (
+    <img
+      src={iconUrl}
+      alt={`${name} icon`}
+      width={20}
+      height={20}
+      className={invert ? "dark:invert" : ""}
+    />
+  );
+};
+
+export function Skills({ setRef }: SkillsProps) {
+  return (
+    <section id="skills" ref={setRef} className="py-20 sm:py-32">
+      <div className="max-w-[800px] mx-auto space-y-12">
+        <h2 className="text-3xl sm:text-4xl font-light">Tech experience</h2>
+
+        <div className="space-y-4">
+          {techStack.map((category) => (
+            <div key={category.name}>
+              <h3 className="mb-6 text-xl text-muted-foreground font-medium">
+                {category.name}
+              </h3>
+
+              <div className="grid w-full grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3">
+                {category.items.map((item) => (
+                  <button
+                    key={item.name}
+                    className="group relative col-span-1 overflow-hidden transition-all duration-300 rounded-md"
+                  >
+                    <div className="relative justify-center p-3 px-4 rounded-md border border-white/10 flex items-center gap-2 overflow-hidden bg-white/[0.02] group-hover:bg-white/[0.05] group-hover:border-white/20 transition-all duration-500">
+                      {/* Gradient overlay for hover effect */}
+                      <div className="pointer-events-none transition-opacity duration-500 group-hover:opacity-50 absolute right-0 h-full w-[25px] bg-gradient-to-r from-transparent to-black/20" />
+
+                      <div className="flex-shrink-0 group-hover:opacity-0 group-hover:translate-x-[-10px] transition-all duration-500">
+                        <TechIcon icon={item.icon} invert={item.invert} />
+                      </div>
+                      <p className="text-sm font-medium truncate">
+                        {item.name}
+                      </p>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
