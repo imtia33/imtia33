@@ -1,5 +1,17 @@
 export const experiences = [
   {
+    company: "Amplytic",
+    role: "Founder & Mobile App Developer",
+    duration: "May 2026 - Present",
+    logo: "/avatars/Amplytic.png",
+    points: [
+      "Founded Amplytic, an open-source believing team and development studio focused on ensuring universal access to high-quality, production-ready software.",
+      "Leading end-to-end product development — from concept and design to deployment — using React Native and Expo.",
+      "Building scalable backend infrastructure and client-facing mobile applications for diverse business needs.",
+    ],
+    website: "https://www.amplytic.dev/",
+  },
+  {
     company: "FocusBear",
     role: "Mobile App Developer Intern",
     duration: "November 2025 - January 2026",
@@ -30,6 +42,30 @@ export const education = [
 ];
 
 export const projects = [
+  {
+    year: "2026",
+    role: "Open Claude",
+    company: "Open source alternative to Claude's workspace",
+    description:
+      "Virtual Workspace in your browser. Sandbox any js framework project in your browser without any setup. Complete workspace with every tool that Claude uses with any LLM of your choice.",
+    tech: ["Remix", "Vite"],
+    links: {
+      github: "https://github.com/imtia33/Open_Claude",
+    },
+    image: "/images/open-claude.png",
+  },
+  {
+    year: "2026",
+    role: "DrawSync",
+    company: "Realtime drawing collaboration",
+    description:
+      "A high-performance collaborative drawing application featuring real-time synchronization powered by SignalR. Seamlessly integrated with Appwrite for user authentication and drawing persistence, allowing multiple users to create and edit art together in real-time.",
+    tech: ["Dotnet", "Appwrite", "SignalR"],
+    links: {
+      github: "https://github.com/imtia33/DrawSync",
+    },
+    image: "/images/drawsync.png",
+  },
   {
     year: "2026",
     role: "Bridge Marketing",
