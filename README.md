@@ -21,11 +21,5 @@ I’m **Imtiaz Royhan** — a curious and creative **software engineer** from Ba
 
 ### Stats
 
-![GitHub Stats](https://github-readme-stats.vercel.app/api?username=imtia33&theme=tokyonight&show_icons=true&hide_border=true&count_private=true)
-
-![GitHub Stats](https://github-readme-stats.vercel.app/api/top-langs/?username=imtia33&theme=tokyonight&show_icons=true&hide_border=true&layout=compact)
-
-
-
 
 
