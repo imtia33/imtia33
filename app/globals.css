@@ -72,6 +72,10 @@
   --sidebar-accent-foreground: 241 245 249;
   --sidebar-border: 30 41 59;
   --sidebar-ring: 21 128 61;
+
+  /* HeroUI Pro Timeline — dark mode overrides */
+  --color-separator: oklch(0.45 0 0);
+  --accent-soft: oklch(0.2 0.03 260);
 }
 
 @theme inline {
@@ -111,6 +115,13 @@
   --color-sidebar-accent-foreground: rgb(var(--sidebar-accent-foreground));
   --color-sidebar-border: rgb(var(--sidebar-border));
   --color-sidebar-ring: rgb(var(--sidebar-ring));
+
+  /* HeroUI Pro Timeline — status & separator colors */
+  --color-success: oklch(0.55 0.2 150);
+  --color-warning: oklch(0.7 0.18 70);
+  --color-danger: oklch(0.55 0.22 25);
+  --color-separator: oklch(0.75 0 0);
+  --accent-soft: oklch(0.95 0.03 260);
 }
 
 @layer base {
@@ -120,6 +131,54 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Inline embedded link for people mentioned in bullet points
+   (e.g. Matej Bačo). Subtle dotted underline, inherits surrounding text
+   color, turns green on hover, with a small arrow icon. */
+.inline-person-link {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 1px;
+  transition: color 0.15s ease;
+}
+.inline-person-link:hover {
+  color: var(--color-primary);
+}
+.inline-person-link svg {
+  width: 0.7em;
+  height: 0.7em;
+  flex-shrink: 0;
+  position: relative;
+  top: 0.05em;
+}
+
+/* Inline Appwrite logotype (official horizontal wordmark: icon + text).
+   Used inside bullet points instead of plain "Appwrite" text.
+   NOTE on naming: the official assets are named after the BACKGROUND they
+   are meant for, not the text color:
+     - appwrite-wordmark-white.svg  → dark text (#19191D) for LIGHT backgrounds
+     - appwrite-wordmark-black.svg → light text (#EDEDF0) for DARK backgrounds
+   So in light mode we show the "white" file, and in dark mode we swap to the
+   "black" file via `content: url(...)`.
+   The <img> default src is the white-background wordmark (dark text); the
+   dark-mode rule below swaps it to the black-background wordmark (light text). */
+img.appwrite-wordmark {
+  display: inline-block;
+  height: 0.95em;
+  width: auto;
+  vertical-align: -0.18em;
+  margin: 0 0.1em;
+  user-select: none;
+}
+.dark img.appwrite-wordmark {
+  content: url("/brands/appwrite-wordmark-black.svg");
 }
 
 @layer utilities {
@@ -137,4 +196,185 @@
       transform: translateY(0);
     }
   }
+}
+
+/* ===========================================================================
+ * HeroUI Pro Timeline Component Styles
+ * (merged from provided globals.css — works with the green theme above)
+ * =========================================================================== */
+
+.timeline {
+  --timeline-spacing: var(--spacing, .25rem);
+  --timeline-marker-size: calc(var(--timeline-spacing) * 7);
+  --timeline-connector-size: calc(var(--timeline-spacing) * .5);
+  --timeline-rail-width: calc(var(--timeline-spacing) * 7);
+  --timeline-gap: calc(var(--timeline-spacing) * 3.5);
+  --timeline-item-gap: calc(var(--timeline-spacing) * 4);
+  --timeline-marker-border-width: calc(var(--timeline-spacing) * .25);
+  --timeline-marker-border-width-lg: calc(var(--timeline-spacing) * .5);
+  --timeline-current-color: var(--color-accent);
+  --timeline-marker-border: var(--color-border);
+  --timeline-marker-fg: var(--color-muted);
+  --timeline-connector-color: var(--color-separator);
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.timeline--axis-start,
+.timeline--axis-center {
+  flex-direction: column;
+  display: flex;
+}
+
+.timeline--compact { --timeline-item-gap: calc(var(--timeline-spacing) * 3); }
+.timeline--comfortable { --timeline-item-gap: calc(var(--timeline-spacing) * 4); }
+
+.timeline--sm { --timeline-marker-size: calc(var(--timeline-spacing) * 5.5); --timeline-rail-width: calc(var(--timeline-spacing) * 5.5); --timeline-gap: calc(var(--timeline-spacing) * 2.5); }
+.timeline--md { --timeline-marker-size: calc(var(--timeline-spacing) * 7); --timeline-rail-width: calc(var(--timeline-spacing) * 7); --timeline-gap: calc(var(--timeline-spacing) * 3.5); }
+.timeline--lg { --timeline-marker-size: calc(var(--timeline-spacing) * 9); --timeline-rail-width: calc(var(--timeline-spacing) * 9); --timeline-gap: calc(var(--timeline-spacing) * 4.5); }
+
+.timeline__item {
+  padding-bottom: var(--timeline-item-gap);
+  display: grid;
+  position: relative;
+}
+.timeline__item[data-last=true] { padding-bottom: 0; }
+
+.timeline--axis-start .timeline__item {
+  grid-template-columns: var(--timeline-rail-width) minmax(0, 1fr) auto;
+  column-gap: var(--timeline-gap);
+}
+.timeline--axis-center .timeline__item {
+  grid-template-columns: minmax(0, 1fr) var(--timeline-rail-width) minmax(0, 1fr);
+  column-gap: var(--timeline-gap);
+}
+
+.timeline__rail {
+  min-height: var(--timeline-marker-size);
+  height: 100%;
+  grid-row: 1/span 20;
+  justify-content: flex-start;
+  align-items: flex-start;
+  display: flex;
+  position: relative;
+}
+.timeline--axis-start .timeline__rail { grid-column: 1; }
+.timeline--axis-center .timeline__rail { grid-column: 2; }
+
+.timeline__marker {
+  z-index: 10;
+  border: var(--timeline-marker-border-width) solid var(--timeline-marker-border);
+  color: var(--timeline-marker-fg);
+  height: var(--timeline-marker-size);
+  width: var(--timeline-marker-size);
+  background-color: #0000;
+  border-radius: 3.40282e38px;
+  flex-shrink: 0;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+}
+.timeline__marker svg {
+  width: 60%;
+  height: 60%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  margin: 0;
+  display: block;
+  flex-shrink: 0;
+}
+.timeline__marker svg.timeline__marker-dot { fill: currentColor; opacity: 0.5; }
+
+.timeline__marker--sm { font-weight: 600; font-size: 10px; }
+.timeline__marker--md { font-size: 0.75rem; line-height: 1rem; font-weight: 600; }
+.timeline__marker--lg { font-size: 0.875rem; line-height: 1.25rem; font-weight: 600; border-width: var(--timeline-marker-border-width-lg); }
+
+.timeline__marker[data-status=default],
+.timeline__marker[data-status=muted] {
+  border-color: var(--timeline-marker-border);
+  color: var(--timeline-marker-fg);
+  background-color: #0000;
+}
+/* Keep the pending icon fully visible (override HeroUI's 0.4 opacity that
+   makes status icons too faint). The spinner/check should be clearly seen. */
+.timeline__marker[data-status=default] svg,
+.timeline__marker[data-status=muted] svg { opacity: 1; }
+.timeline__marker[data-status=muted] { opacity: .7; }
+
+.timeline__marker[data-status=current] {
+  background: radial-gradient(circle at 30% 30%, color-mix(in srgb, var(--accent-soft) 80%, transparent), color-mix(in srgb, var(--accent-soft) 30%, transparent) 70%);
+  color: var(--accent);
+  border-color: var(--timeline-current-color);
+}
+
+.timeline__marker[data-status=success] {
+  background: radial-gradient(circle at 30% 30%, color-mix(in srgb, var(--color-success) 25%, transparent), color-mix(in srgb, var(--color-success) 8%, transparent) 70%);
+  border-color: color-mix(in srgb, var(--color-success) 55%, var(--timeline-marker-border));
+  color: var(--color-success);
+}
+
+.timeline__marker[data-status=warning] {
+  background: radial-gradient(circle at 30% 30%, color-mix(in srgb, var(--color-warning) 25%, transparent), color-mix(in srgb, var(--color-warning) 8%, transparent) 70%);
+  border-color: color-mix(in srgb, var(--color-warning) 55%, var(--timeline-marker-border));
+  color: var(--color-warning);
+}
+
+.timeline__marker[data-status=danger] {
+  background: radial-gradient(circle at 30% 30%, color-mix(in srgb, var(--color-danger) 25%, transparent), color-mix(in srgb, var(--color-danger) 8%, transparent) 70%);
+  border-color: color-mix(in srgb, var(--color-danger) 55%, var(--timeline-marker-border));
+  color: var(--color-danger);
+}
+
+.timeline__connector {
+  background-color: var(--timeline-connector-color);
+  bottom: calc(var(--timeline-item-gap) * -1);
+  left: calc(50% - var(--timeline-connector-size) / 2);
+  top: var(--timeline-marker-size);
+  width: var(--timeline-connector-size);
+  position: absolute;
+}
+.timeline__item[data-last=true] .timeline__connector:not([data-force]) { display: none; }
+
+.timeline__content {
+  min-width: 0;
+  min-height: var(--timeline-marker-size);
+  flex-direction: column;
+  display: flex;
+}
+.timeline__item--align-start .timeline__content { justify-content: flex-start; }
+.timeline__item--align-center .timeline__content { justify-content: center; }
+
+.timeline--axis-start .timeline__content { grid-column: 2; }
+.timeline--axis-center .timeline__content[data-side=start] { text-align: right; grid-column: 1; justify-self: end; align-items: flex-end; }
+.timeline--axis-center .timeline__content[data-side=end] { text-align: left; grid-column: 3; justify-self: start; align-items: flex-start; }
+
+/* Dark mode timeline overrides */
+.dark .timeline { --timeline-marker-border: var(--color-border); --timeline-marker-fg: var(--color-muted-foreground); --timeline-connector-color: var(--color-separator); --timeline-current-color: var(--color-accent); }
+.dark .timeline__marker[data-status=default],
+.dark .timeline__marker[data-status=muted] { border-color: var(--timeline-marker-border); color: var(--timeline-marker-fg); background-color: #0000; }
+.dark .timeline__marker[data-status=default] svg,
+.dark .timeline__marker[data-status=muted] svg { opacity: 0.5; }
+.dark .timeline__marker[data-status=current] { background: radial-gradient(circle at 30% 30%, color-mix(in srgb, var(--accent-soft) 90%, transparent), color-mix(in srgb, var(--accent-soft) 40%, transparent) 70%); color: var(--color-primary); border-color: var(--timeline-current-color); }
+.dark .timeline__marker[data-status=success] { background: radial-gradient(circle at 30% 30%, color-mix(in srgb, var(--color-success) 30%, transparent), color-mix(in srgb, var(--color-success) 10%, transparent) 70%); border-color: color-mix(in srgb, var(--color-success) 60%, var(--timeline-marker-border)); color: var(--color-success); }
+.dark .timeline__marker[data-status=warning] { background: radial-gradient(circle at 30% 30%, color-mix(in srgb, var(--color-warning) 30%, transparent), color-mix(in srgb, var(--color-warning) 10%, transparent) 70%); border-color: color-mix(in srgb, var(--color-warning) 60%, var(--timeline-marker-border)); color: var(--color-warning); }
+.dark .timeline__marker[data-status=danger] { background: radial-gradient(circle at 30% 30%, color-mix(in srgb, var(--color-danger) 30%, transparent), color-mix(in srgb, var(--color-danger) 10%, transparent) 70%); border-color: color-mix(in srgb, var(--color-danger) 60%, var(--timeline-marker-border)); color: var(--color-danger); }
+
+/* Mobile responsive — center axis collapses to start */
+@media (max-width: 639px) {
+  .timeline--axis-center .timeline__item { grid-template-columns: var(--timeline-rail-width) minmax(0, 1fr); column-gap: var(--timeline-gap); }
+  .timeline--axis-center .timeline__rail { grid-column: 1; }
+  .timeline--axis-center .timeline__content[data-side=start],
+  .timeline--axis-center .timeline__content[data-side=end] { text-align: left; grid-column: 2; justify-self: start; align-items: flex-start; }
+  .timeline { --timeline-spacing: .35rem; }
+  .timeline--sm { --timeline-marker-size: 1.25rem; --timeline-rail-width: 1.25rem; --timeline-gap: .5rem; }
+  .timeline--md { --timeline-marker-size: 1.5rem; --timeline-rail-width: 1.5rem; --timeline-gap: .625rem; }
+  .timeline--lg { --timeline-marker-size: 1.75rem; --timeline-rail-width: 1.75rem; --timeline-gap: .75rem; }
+  .timeline:not(.timeline--sm):not(.timeline--md):not(.timeline--lg) { --timeline-marker-size: 1.5rem; --timeline-rail-width: 1.5rem; --timeline-gap: .625rem; }
+  .timeline__content { overflow-wrap: break-word; word-break: break-word; }
 }

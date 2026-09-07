@@ -1,15 +1,121 @@
 export const experiences = [
   {
-    company: "Amplytic",
-    role: "Founder & Mobile App Developer",
-    duration: "May 2026 - Present",
-    logo: "/avatars/Amplytic.png",
+    company: "Appwrite",
+    role: "Backend Contributor",
+    duration: "August 2026 - Present",
+    logo: "/avatars/appwrite.svg",
+    website: "https://appwrite.io/",
     points: [
-      "Founded Amplytic, an open-source believing team and development studio focused on ensuring universal access to high-quality, production-ready software.",
-      "Leading end-to-end product development — from concept and design to deployment — using React Native and Expo.",
-      "Building scalable backend infrastructure and client-facing mobile applications for diverse business needs.",
+      "Building backend features at Appwrite — the open-source, self-hosted backend-as-a-service platform that gives developers authentication, databases, storage, functions, and real-time capabilities out of the box.",
+      "Working alongside Matej Bačo (Engineering Lead at Appwrite) on core authentication and backend platform features.",
+      "Building features that simplify backend development for thousands of Appwrite users.",
     ],
-    website: "https://www.amplytic.dev/",
+    /*
+     * ─────────────────────────────────────────────────────────────────────
+     *  FEATURE TIMELINE  —  Appwrite backend contributions
+     * ─────────────────────────────────────────────────────────────────────
+     *  Each feature below has a `status` field. To mark a feature as
+     *  completed from the GitHub repo, simply change its `status` value
+     *  from "pending"  →  "done".  The live site will reflect the change
+     *  automatically on the next build / deploy.
+     *
+     *  `platform`     : the brand shown as a badge (icon + name).
+     *  `title`        : short label of the feature.
+     *  `description`  : one-line explanation of the feature.
+     *  `status`       : "done" | "pending"
+     *  `link`         : (optional) PR / docs / issue URL — shown when the
+     *                   feature is marked `status: "done"`. Replace the
+     *                   placeholder PR-search links below with the exact
+     *                   pull-request URL once it is merged.
+     *  `image`        : (optional) path to a preview/banner image (e.g. a
+     *                   screenshot or announcement graphic) that is shown
+     *                   below the feature's text as a rounded thumbnail.
+     *  `imageAlt`     : (optional) alt text for the image.
+     * ─────────────────────────────────────────────────────────────────────
+     */
+    features: [
+      {
+        platform: "Appwrite",
+        title: "getPhoto() — OAuth avatar fetching",
+        description:
+          "Implemented the getPhoto() method to fetch avatar links related to OAuth providers from the Appwrite backend.",
+        status: "done",
+        link: "https://github.com/appwrite/appwrite/pulls?q=avatar+oauth",
+        image: "/images/get-photo.jpg",
+        imageAlt:
+          "Appwrite functionality — getPhoto method for universal avatar fetching across all user profile sources",
+      },
+      {
+        platform: "Cloudflare",
+        title: "Cloudflare OAuth2 provider",
+        description:
+          "Added Cloudflare as an OAuth2 authentication provider in the Appwrite backend.",
+        status: "done",
+        link: "https://github.com/appwrite/appwrite/pulls?q=cloudflare+oauth",
+        image: "/images/cloudflare-add.png",
+        imageAlt:
+          "Cloudflare is now on Appwrite — manage DNS, Workers, R2 and more from your Appwrite project",
+      },
+      {
+        platform: "Appwrite",
+        title: "setPhoto() — direct photo upload",
+        description:
+          "Building setPhoto() to let users upload any photo directly to the Appwrite backend — removing the storage management hassle for developers.",
+        status: "pending",
+        image: "/images/set-photo.jpg",
+        imageAlt:
+          "Appwrite functionality — setPhoto method for direct photo uploading to the Appwrite backend",
+      },
+      {
+        platform: "Appwrite",
+        title: "OTP — Email verification, Password reset & Teams Invite",
+        description:
+          "Extending Appwrite's verification system with an OTP method (code-based) for Email verification, Password reset, and the Teams Invite API — an alternative to magic-URL verification that is hard to implement on mobile apps relying on deep links.",
+        status: "pending",
+        image: "/images/otp.jpg",
+        imageAlt:
+          "Appwrite functionality — OTP (one-time password) support for Password Reset and Email Verification, with enhanced security for account actions",
+      },
+      {
+        platform: "Vercel",
+        title: "Vercel integration",
+        description:
+          "Add an integration with Vercel so developers can use Vercel's features while keeping Appwrite as their primary backend.",
+        status: "pending",
+      },
+      {
+        platform: "Supabase",
+        title: "Supabase integration",
+        description:
+          "Add an integration with Supabase so developers can use Supabase's features while keeping Appwrite as their primary backend.",
+        status: "pending",
+      },
+      {
+        platform: "Netlify",
+        title: "Netlify integration",
+        description:
+          "Add an integration with Netlify so developers can use Netlify's features while keeping Appwrite as their primary backend.",
+        status: "pending",
+      },
+      {
+        platform: "Firebase",
+        title: "Firebase integration",
+        description:
+          "Add an integration with Firebase so developers can use Firebase's features while keeping Appwrite as their primary backend.",
+        status: "pending",
+      },
+    ],
+  },
+  {
+    company: "UniferaIT",
+    role: "Mobile App Developer Intern",
+    duration: "August 3 - September 12, 2026",
+    logo: "https://avatar.vercel.sh/UniferaIT",
+    points: [
+      "Internship focused on building the company's own multi-tenant HRMS (Human Resource Management System) mobile application.",
+      "Developed core features of a multi-tenant HRMS mobile app, handling tenant isolation and shared backend infrastructure.",
+      "Gained hands-on experience with multi-tenant architecture and production mobile app development.",
+    ],
   },
   {
     company: "FocusBear",
