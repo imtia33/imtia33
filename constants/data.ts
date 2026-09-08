@@ -80,8 +80,12 @@ export const experiences = [
         platform: "Vercel",
         title: "Vercel integration",
         description:
-          "Add an integration with Vercel so developers can use Vercel's features while keeping Appwrite as their primary backend.",
-        status: "pending",
+          "Added an integration with Vercel so developers can use Vercel's features while keeping Appwrite as their primary backend.",
+        status: "done",
+        link: "https://github.com/appwrite/appwrite/pull/13546",
+        image: "/images/vercel.png",
+        imageAlt:
+          "Vercel is now on Appwrite — use Vercel's features while keeping Appwrite as your primary backend",
       },
       {
         platform: "Supabase",
