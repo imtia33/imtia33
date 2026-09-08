@@ -108,6 +108,27 @@ export const experiences = [
           "Add an integration with Firebase so developers can use Firebase's features while keeping Appwrite as their primary backend.",
         status: "pending",
       },
+      {
+        platform: "Railway",
+        title: "Railway integration",
+        description:
+          "Add an integration with Railway so developers can deploy and manage Railway services while keeping Appwrite as their primary backend.",
+        status: "pending",
+      },
+      {
+        platform: "Mailgun",
+        title: "Mailgun integration",
+        description:
+          "Add an integration with Mailgun so developers can use Mailgun's email delivery and routing while keeping Appwrite as their primary backend.",
+        status: "pending",
+      },
+      {
+        platform: "SendGrid",
+        title: "SendGrid integration",
+        description:
+          "Add an integration with SendGrid so developers can use SendGrid's email API and templates while keeping Appwrite as their primary backend.",
+        status: "pending",
+      },
     ],
   },
   {
