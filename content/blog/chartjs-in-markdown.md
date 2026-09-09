@@ -4,6 +4,7 @@ date: "2026-09-09"
 description: "A demo of embedding Chart.js charts directly in markdown blog posts using a custom fenced code block convention. Bar, line, and doughnut charts rendered server-side from JSON config."
 tags: ["chartjs", "data-viz", "markdown", "demo"]
 author: "Imtiaz Royhan"
+cover: "/images/reads-over-time.png"
 ---
 
 One of the things I wanted for this blog was the ability to drop a chart into a post without writing a React component every time. The solution: a custom fenced code block convention. If I write a fenced block tagged as `chart`, the markdown renderer parses the JSON inside and hands it to Chart.js.

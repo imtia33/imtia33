@@ -2,6 +2,8 @@
 
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
 import { MermaidDiagram } from "./mermaid-diagram";
 import { ChartBlock } from "./chart-block";
 import { CodeBlock } from "./code-block";
@@ -15,6 +17,7 @@ import { CodeBlock } from "./code-block";
  *   • Inline code with subtle styling
  *   • Links open in a new tab
  *   • Theme-aware images (Appwrite wordmark swaps per theme via CSS)
+ *   • LaTeX math via remark-math + rehype-katex ($...$ inline, $$...$$ block)
  *
  * react-markdown v10 API notes:
  *   - The `code` component receives `inline` (boolean) to distinguish block
@@ -31,7 +34,8 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
   return (
     <div className="prose-blog">
       <ReactMarkdown
-        remarkPlugins={[remarkGfm]}
+        remarkPlugins={[remarkGfm, remarkMath]}
+        rehypePlugins={[rehypeKatex]}
         components={{
           // In react-markdown v10, `code` handles both inline and block code.
           // We distinguish via the presence of a `language-*` className

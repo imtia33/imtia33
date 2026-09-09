@@ -8,9 +8,8 @@ import matter from "gray-matter";
  * Reads `.md` files from `content/blog/`, parses their frontmatter with
  * gray-matter, and exposes typed helpers for the blog listing + post pages.
  *
- * No database. Content is hardcoded into the repo (as requested). Because
- * these functions use the Node `fs` module, they must only be called from
- * Server Components / server-side code — never from a Client Component.
+ * No database. Content is hardcoded into the repo. Because these functions
+ * use the Node `fs` module, they must only be called from Server Components.
  */
 
 const BLOG_DIR = path.join(process.cwd(), "content", "blog");
@@ -18,23 +17,30 @@ const BLOG_DIR = path.join(process.cwd(), "content", "blog");
 export interface PostMeta {
   slug: string;
   title: string;
-  date: string; // ISO string from frontmatter (e.g. "2026-09-08")
+  date: string; // ISO date from frontmatter (e.g. "2026-09-08")
   description: string;
   tags: string[];
   author: string;
+  cover?: string; // cover image path for landing/listing cards
+  excerpt?: string; // short summary (falls back to description)
 }
 
 export interface Post extends PostMeta {
   content: string; // raw markdown body (frontmatter stripped)
+  keywords?: string[];
+  canonical?: string;
 }
 
-/** Raw shape of the frontmatter we expect in each .md file. */
 interface Frontmatter {
   title?: string;
   date?: string;
   description?: string;
+  excerpt?: string;
   tags?: string[];
   author?: string;
+  cover?: string;
+  keywords?: string[];
+  canonical?: string;
 }
 
 function validateFrontmatter(fm: Frontmatter, slug: string): PostMeta {
@@ -45,8 +51,10 @@ function validateFrontmatter(fm: Frontmatter, slug: string): PostMeta {
     title: fm.title,
     date: fm.date,
     description: fm.description ?? "",
+    excerpt: fm.excerpt ?? fm.description ?? "",
     tags: Array.isArray(fm.tags) ? fm.tags : [],
     author: fm.author ?? "Imtiaz Royhan",
+    cover: fm.cover,
   };
 }
 
@@ -78,7 +86,12 @@ export function getPost(slug: string): Post | null {
   const raw = fs.readFileSync(fullPath, "utf8");
   const { data, content } = matter(raw);
   const meta = validateFrontmatter(data as Frontmatter, slug);
-  return { ...meta, content };
+  return {
+    ...meta,
+    content,
+    keywords: Array.isArray(data.keywords) ? data.keywords : undefined,
+    canonical: typeof data.canonical === "string" ? data.canonical : undefined,
+  };
 }
 
 /** Slugs for `generateStaticParams` (pre-renders every post at build time). */

@@ -4,6 +4,7 @@ date: "2026-09-07"
 description: "A complete reference of the markdown features supported on this blog — headings, emphasis, lists, tables, blockquotes, task lists, links, images, inline code, code blocks, and more."
 tags: ["markdown", "reference", "demo"]
 author: "Imtiaz Royhan"
+cover: "/avatars/appwrite.svg"
 ---
 
 This post is a quick reference for everything the blog's markdown renderer supports. It's all [GitHub-Flavored Markdown](https://github.github.com/gfm/) plus a few custom extensions for mermaid diagrams and Chart.js charts.

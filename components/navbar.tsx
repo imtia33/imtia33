@@ -10,6 +10,7 @@ export function Navbar({ activeSection, scrollToSection }: NavbarProps) {
     "intro",
     "experience",
     "education",
+    "articles",
     "work",
     "skills",
     "connect",

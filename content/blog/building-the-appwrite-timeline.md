@@ -4,6 +4,7 @@ date: "2026-09-08"
 description: "How I built a status-driven feature timeline for my portfolio using the HeroUI Pro Timeline component, with real brand icons, theme-aware wordmarks, and a done/pending workflow editable from the repo."
 tags: ["appwrite", "react", "timeline", "ui"]
 author: "Imtiaz Royhan"
+cover: "/avatars/appwrite.svg"
 ---
 
 I recently added a **feature timeline** to my portfolio's Work Experience section to track the backend features I'm building at [Appwrite](https://appwrite.io). The goal was to make it look polished, support a done/pending workflow, and be editable straight from the GitHub repo — no database, just a data file.
