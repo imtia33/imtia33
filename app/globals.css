@@ -378,3 +378,135 @@ img.appwrite-wordmark {
   .timeline:not(.timeline--sm):not(.timeline--md):not(.timeline--lg) { --timeline-marker-size: 1.5rem; --timeline-rail-width: 1.5rem; --timeline-gap: .625rem; }
   .timeline__content { overflow-wrap: break-word; word-break: break-word; }
 }
+/* ===========================================================================
+ * BLOG PROSE STYLES
+ * Typography for markdown-rendered blog posts (.prose-blog).
+ * Scope everything under .prose-blog so it only affects blog content.
+ * =========================================================================== */
+
+.prose-blog {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--color-foreground);
+  word-wrap: break-word;
+}
+
+/* Headings */
+.prose-blog h1,
+.prose-blog h2,
+.prose-blog h3,
+.prose-blog h4 {
+  font-weight: 700;
+  line-height: 1.25;
+  margin-top: 2em;
+  margin-bottom: 0.75em;
+  scroll-margin-top: 5rem;
+}
+.prose-blog h1 { font-size: 1.875em; }
+.prose-blog h2 {
+  font-size: 1.5em;
+  padding-bottom: 0.3em;
+  border-bottom: 1px solid var(--color-border);
+}
+.prose-blog h3 { font-size: 1.25em; }
+.prose-blog h4 { font-size: 1em; }
+
+/* Paragraphs */
+.prose-blog p {
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+/* Lists */
+.prose-blog ul,
+.prose-blog ol {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  padding-left: 1.5em;
+}
+.prose-blog ul { list-style: disc; }
+.prose-blog ol { list-style: decimal; }
+.prose-blog li { margin-top: 0.4em; margin-bottom: 0.4em; }
+.prose-blog li > ul,
+.prose-blog li > ol { margin-top: 0.4em; margin-bottom: 0.4em; }
+
+/* Task list items — no bullet, custom checkbox styling */
+.prose-blog li:has(> input[type="checkbox"]) {
+  list-style: none;
+  padding-left: 0;
+  margin-left: -1.25em;
+}
+.prose-blog input[type="checkbox"] {
+  margin-right: 0.5em;
+  accent-color: var(--color-primary);
+}
+
+/* Blockquotes */
+.prose-blog blockquote {
+  margin: 1.5em 0;
+  padding: 0.75em 1.25em;
+  border-left: 3px solid var(--color-primary);
+  background: var(--color-muted);
+  border-radius: 0 0.5em 0.5em 0;
+  color: var(--color-muted-foreground);
+  font-style: italic;
+}
+.prose-blog blockquote p { margin: 0.25em 0; }
+.prose-blog blockquote blockquote { margin-top: 0.75em; margin-bottom: 0.75em; }
+
+/* Tables */
+.prose-blog table {
+  width: 100%;
+  margin: 1.5em 0;
+  border-collapse: collapse;
+  font-size: 0.95em;
+  display: block;
+  overflow-x: auto;
+}
+.prose-blog th,
+.prose-blog td {
+  padding: 0.6em 0.9em;
+  border: 1px solid var(--color-border);
+  text-align: left;
+}
+.prose-blog th {
+  background: var(--color-muted);
+  font-weight: 600;
+}
+.prose-blog tr:nth-child(even) td {
+  background: color-mix(in srgb, var(--color-muted) 50%, transparent);
+}
+
+/* Horizontal rule */
+.prose-blog hr {
+  margin: 2.5em 0;
+  border: none;
+  border-top: 1px solid var(--color-border);
+}
+
+/* Strong / emphasis */
+.prose-blog strong { font-weight: 700; }
+.prose-blog em { font-style: italic; }
+.prose-blog del { text-decoration: line-through; opacity: 0.7; }
+
+/* Links (also handled by component, but keep for safety) */
+.prose-blog a {
+  color: var(--color-primary);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+/* Images */
+.prose-blog img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5em;
+  margin: 1em 0;
+}
+
+/* Block code spacing — the CodeBlock/Mermaid/Chart wrappers handle their
+   own padding; ensure paragraphs don't double up margins. */
+.prose-blog > div + p,
+.prose-blog p + div {
+  margin-top: 1.5em;
+}
