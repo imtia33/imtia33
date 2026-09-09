@@ -385,6 +385,7 @@ img.appwrite-wordmark {
  * =========================================================================== */
 
 .prose-blog {
+  font-family: var(--font-almarai), var(--font-geist), sans-serif;
   font-size: 1rem;
   line-height: 1.75;
   color: var(--color-foreground);
@@ -477,11 +478,12 @@ img.appwrite-wordmark {
   background: color-mix(in srgb, var(--color-muted) 50%, transparent);
 }
 
-/* Horizontal rule */
+/* Horizontal rule — hidden inside blog prose. The only "line" we want
+   under a section is the underline below H2 headings (above). Any stray
+   `---` in the markdown renders as an <hr> which we suppress here so no
+   long horizontal divider appears between sections. */
 .prose-blog hr {
-  margin: 2.5em 0;
-  border: none;
-  border-top: 1px solid var(--color-border);
+  display: none;
 }
 
 /* Strong / emphasis */

@@ -1,12 +1,19 @@
 import type React from "react";
 import type { Metadata, Viewport } from "next";
-import { Geist } from "next/font/google";
+import { Geist, Almarai } from "next/font/google";
 import "./globals.css";
 
 const geist = Geist({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-geist",
+});
+
+const almarai = Almarai({
+  weight: ["300", "400", "700", "800"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-almarai",
 });
 
 /**
@@ -111,7 +118,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geist.variable}`}>
+    <html lang="en" className={`${geist.variable} ${almarai.variable}`}>
       <head>
         {/* KaTeX stylesheet for blog math (rendered server-side via rehype-katex) */}
         <link
