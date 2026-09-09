@@ -8,7 +8,7 @@ import { MarkdownRenderer } from "@/components/blog/markdown-renderer";
 import { SmoothScroll } from "@/components/blog/smooth-scroll";
 
 const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://imtia33.github.io";
+  process.env.NEXT_PUBLIC_SITE_URL || "https://axistro.dev";
 
 /** Pre-render every post at build time (content is hardcoded, no DB). */
 export function generateStaticParams() {

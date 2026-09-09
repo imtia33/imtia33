@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { getAllSlugs } from "@/lib/posts";
 
 const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://imtia33.github.io";
+  process.env.NEXT_PUBLIC_SITE_URL || "https://axistro.dev";
 
 /**
  * sitemap.ts — auto-generated sitemap.xml for Google indexing.

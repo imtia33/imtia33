@@ -1,7 +1,7 @@
 import type { MetadataRoute } from "next";
 
 const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL || "https://imtia33.github.io";
+  process.env.NEXT_PUBLIC_SITE_URL || "https://axistro.dev";
 
 /**
  * robots.ts — generated robots.txt for search engine crawlers.

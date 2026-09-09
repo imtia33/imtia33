@@ -30,7 +30,7 @@ const playfair = Playfair_Display({
  * correctly and for canonical URLs to work. Update SITE_URL to your
  * production domain (Vercel auto-sets `NEXT_PUBLIC_SITE_URL` if configured).
  */
-const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://imtia33.github.io";
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://axistro.dev";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   description:
     "I am Imtiaz Royhan, a passionate App Developer specializing in building high-quality mobile and web applications with React Native and Appwrite. Explore my work, experience, and articles.",
   applicationName: "Imtiaz Royhan Portfolio",
-  authors: [{ name: "Imtiaz Royhan", url: "https://imtia33.github.io" }],
+  authors: [{ name: "Imtiaz Royhan", url: "https://axistro.dev" }],
   creator: "Imtiaz Royhan",
   publisher: "Imtiaz Royhan",
   keywords: [

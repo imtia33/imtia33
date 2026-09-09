@@ -6,7 +6,7 @@ excerpt: "How I cut Appwrite database reads by 66x using delta sync on a local m
 tags: ["appwrite", "caching", "delta-sync", "performance", "react-native"]
 author: "Imtiaz Royhan"
 cover: "/images/reads-over-time.png"
-canonical: "https://imtia33.github.io/blog/the-art-of-caching"
+canonical: "https://axistro.dev/blog/the-art-of-caching"
 keywords:
   - reduce appwrite read counts
   - optimize appwrite db reads
@@ -126,7 +126,7 @@ Step by step, on every screen load:
 
 ## The Cons
 
-Nothing this cheap comes free. Three catches, in order of how much they hurt.
+Nothing this cheap comes free. Two catches, in order of how much they hurt.
 
 **1. Deletions are invisible.** A deleted row doesn't leave an `$updatedAt` behind, it just stops existing. The bookmark method has no way to perceive an absence. The local mirror keeps believing in something the cloud has already let go of. This isn't a bug I patched, it's the actual price of the strategy. (Planned fix: soft-delete tombstones, a marker kept just long enough for a sync pass to notice it and clean up the ghost.)
 
