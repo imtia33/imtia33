@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Calendar } from "lucide-react";
 import { getAllSlugs, getPost } from "@/lib/posts";
 import { BlogHeader } from "@/components/blog/blog-header";
 import { MarkdownRenderer } from "@/components/blog/markdown-renderer";
@@ -153,23 +153,11 @@ export default async function BlogPostPage({
       <BlogHeader />
       <main className="mx-auto max-w-3xl px-4 sm:px-6 py-12 sm:py-16">
         <article itemScope itemType="https://schema.org/BlogPosting">
-          {/* Post header */}
-          <header className="mb-10">
-            <div className="flex items-center gap-2 text-xs text-muted-foreground mb-3">
-              <time dateTime={post.date} itemProp="datePublished">
-                {new Date(post.date).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
-              </time>
-              <span>·</span>
-              <span itemProp="author">{post.author}</span>
-              <span>·</span>
-              <span>{minutes} min read</span>
-            </div>
+          {/* Post header — centered editorial layout (title, excerpt, date
+              pill badge, then full-width cover image) */}
+          <header className="mb-12 text-center">
             <h1
-              className="text-3xl sm:text-4xl font-bold tracking-tight leading-tight"
+              className="font-light tracking-tight leading-[1.1] text-4xl sm:text-5xl md:text-6xl"
               style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
               itemProp="headline"
             >
@@ -177,26 +165,32 @@ export default async function BlogPostPage({
             </h1>
             {(post.excerpt || post.description) && (
               <p
-                className="mt-3 text-lg text-muted-foreground leading-relaxed"
+                className="mx-auto mt-6 max-w-2xl text-base sm:text-lg leading-relaxed opacity-80"
+                style={{ fontFamily: "var(--font-almarai), sans-serif" }}
                 itemProp="description"
               >
                 {post.excerpt || post.description}
               </p>
             )}
-            {post.tags.length > 0 && (
-              <div className="mt-4 flex flex-wrap gap-2">
-                {post.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="inline-flex items-center px-2 py-0.5 rounded-md bg-muted text-muted-foreground text-xs font-medium"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            )}
+            {/* Date in a pill badge with a calendar icon */}
+            <div className="mt-8 flex justify-center">
+              <span className="inline-flex items-center gap-2 rounded-lg bg-muted px-3 py-1.5 text-xs sm:text-sm font-medium">
+                <Calendar className="w-3.5 h-3.5" />
+                <time dateTime={post.date} itemProp="datePublished">
+                  {new Date(post.date).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </time>
+                <span aria-hidden className="opacity-40">·</span>
+                <span>{minutes} min read</span>
+                <meta itemProp="author" content={post.author} />
+              </span>
+            </div>
+            {/* Cover image — full width, sharp corners */}
             {post.cover && (
-              <div className="mt-6 overflow-hidden rounded-xl border border-border">
+              <div className="mt-10 overflow-hidden">
                 <img
                   src={post.cover}
                   alt={post.title}
@@ -206,6 +200,20 @@ export default async function BlogPostPage({
               </div>
             )}
           </header>
+
+          {/* Tags row (kept compact, left-aligned with the body) */}
+          {post.tags.length > 0 && (
+            <div className="mb-8 flex flex-wrap gap-2">
+              {post.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="inline-flex items-center px-2 py-0.5 rounded-md bg-muted text-muted-foreground text-xs font-medium"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+          )}
 
           {/* Post body — SSR markdown → client-rendered interactive bits */}
           <div itemProp="articleBody">
