@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Metadata } from "next";
 import { getAllPosts } from "@/lib/posts";
 import { BlogHeader } from "@/components/blog/blog-header";
+import { SmoothScroll } from "@/components/blog/smooth-scroll";
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://imtia33.github.io";
@@ -70,6 +71,7 @@ export default function BlogIndexPage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <SmoothScroll />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -77,7 +79,10 @@ export default function BlogIndexPage() {
       <BlogHeader />
       <main className="mx-auto max-w-3xl px-4 sm:px-6 py-12 sm:py-16">
         <header className="mb-10 sm:mb-14">
-          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight">
+          <h1
+            className="text-3xl sm:text-4xl font-bold tracking-tight"
+            style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
+          >
             Blog
           </h1>
           <p className="mt-2 text-muted-foreground">

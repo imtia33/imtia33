@@ -5,6 +5,7 @@ import { ArrowLeft } from "lucide-react";
 import { getAllSlugs, getPost } from "@/lib/posts";
 import { BlogHeader } from "@/components/blog/blog-header";
 import { MarkdownRenderer } from "@/components/blog/markdown-renderer";
+import { SmoothScroll } from "@/components/blog/smooth-scroll";
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://imtia33.github.io";
@@ -144,6 +145,7 @@ export default async function BlogPostPage({
 
   return (
     <div className="min-h-screen bg-background text-foreground">
+      <SmoothScroll />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
@@ -168,6 +170,7 @@ export default async function BlogPostPage({
             </div>
             <h1
               className="text-3xl sm:text-4xl font-bold tracking-tight leading-tight"
+              style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
               itemProp="headline"
             >
               {post.title}
