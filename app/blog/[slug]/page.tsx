@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowLeft, Calendar } from "lucide-react";
-import { getAllSlugs, getPost } from "@/lib/posts";
+import { getAllSlugs, getPost, readingTime } from "@/lib/posts";
 import { BlogHeader } from "@/components/blog/blog-header";
 import { MarkdownRenderer } from "@/components/blog/markdown-renderer";
 import { SmoothScroll } from "@/components/blog/smooth-scroll";
@@ -80,16 +80,6 @@ export function generateMetadata({
       },
     };
   })();
-}
-
-/** Estimate reading time from markdown body (words / 200 wpm). */
-function readingTime(markdown: string): number {
-  const words = markdown
-    .replace(/```[\s\S]*?```/g, " ") // strip code blocks
-    .replace(/[#*_>`-]/g, " ")
-    .split(/\s+/)
-    .filter(Boolean).length;
-  return Math.max(1, Math.ceil(words / 200));
 }
 
 export default async function BlogPostPage({

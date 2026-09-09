@@ -2,14 +2,20 @@
 
 import Link from "next/link";
 import { useRef } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Clock, Calendar } from "lucide-react";
 
 /**
- * Articles — horizontal-scrolling list of blog posts with cover images.
+ * Articles — horizontal-scrolling list of blog posts.
  *
- * Rendered on the landing page before the Works section. The posts data is
- * fetched server-side (in the page) and passed in as props because the blog
- * loader uses the Node `fs` module and can't run in a client component.
+ * Card design (matches the provided reference):
+ *   • Transparent container (no card border / background / shadow)
+ *   • Rounded cover image at the top with an "Article" pill badge
+ *   • Headline below the image (bold, foreground color)
+ *   • Meta row: clock icon + "06 min read"  •  calendar icon + "Sep 26, 2026"
+ *
+ * The posts data (including server-computed reading time) is passed in as
+ * props because the blog loader uses the Node `fs` module and can't run in
+ * a client component.
  */
 
 interface ArticleCard {
@@ -19,6 +25,7 @@ interface ArticleCard {
   excerpt: string;
   cover?: string;
   tags: string[];
+  readingTime: number;
 }
 
 interface ArticlesProps {
@@ -32,7 +39,6 @@ export function Articles({ setRef, posts }: ArticlesProps) {
   const scrollBy = (dir: "left" | "right") => {
     const el = scrollerRef.current;
     if (!el) return;
-    // Scroll ~80% of the visible width per click.
     const amount = Math.round(el.clientWidth * 0.8) * (dir === "left" ? -1 : 1);
     el.scrollBy({ left: amount, behavior: "smooth" });
   };
@@ -44,7 +50,7 @@ export function Articles({ setRef, posts }: ArticlesProps) {
       <div className="space-y-3">
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
           <h2 className="text-3xl sm:text-4xl font-light">Articles</h2>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-3">
             <Link
               href="/blog"
               className="text-sm text-muted-foreground hover:text-primary transition-colors"
@@ -74,16 +80,16 @@ export function Articles({ setRef, posts }: ArticlesProps) {
       {/* Horizontal scroller */}
       <div
         ref={scrollerRef}
-        className="flex gap-5 overflow-x-auto pb-4 pt-2 snap-x snap-mandatory scroll-smooth -mx-1 px-1 [scrollbar-width:thin]"
+        className="flex gap-8 overflow-x-auto pb-4 pt-6 snap-x snap-mandatory scroll-smooth -mx-1 px-1 [scrollbar-width:thin]"
       >
         {posts.map((post) => (
           <Link
             key={post.slug}
             href={`/blog/${post.slug}`}
-            className="group flex-shrink-0 w-[280px] sm:w-[340px] snap-start rounded-2xl border border-border/40 overflow-hidden hover:border-primary/30 transition-all duration-300 bg-card"
+            className="group flex-shrink-0 w-[300px] sm:w-[360px] snap-start"
           >
-            {/* Cover image */}
-            <div className="aspect-[16/9] overflow-hidden bg-muted/30">
+            {/* Cover image with "Article" pill badge (transparent card body) */}
+            <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl bg-muted/30">
               {post.cover ? (
                 <img
                   src={post.cover}
@@ -96,36 +102,31 @@ export function Articles({ setRef, posts }: ArticlesProps) {
                   No cover
                 </div>
               )}
+              {/* "Article" badge — top-right white pill */}
+              <span className="absolute top-3 right-3 inline-flex items-center px-2.5 py-1 rounded-full bg-white text-black text-[11px] font-bold uppercase tracking-wide shadow-sm">
+                Article
+              </span>
             </div>
-            {/* Body */}
-            <div className="p-4 sm:p-5 space-y-2">
-              <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                <time dateTime={post.date}>
-                  {new Date(post.date).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "short",
-                    day: "numeric",
-                  })}
-                </time>
-              </div>
-              <h3 className="text-lg font-semibold leading-snug group-hover:text-primary transition-colors line-clamp-2">
-                {post.title}
-              </h3>
-              <p className="text-sm text-muted-foreground leading-relaxed line-clamp-3">
-                {post.excerpt}
-              </p>
-              {post.tags.length > 0 && (
-                <div className="flex flex-wrap gap-1.5 pt-1">
-                  {post.tags.slice(0, 3).map((tag) => (
-                    <span
-                      key={tag}
-                      className="inline-flex items-center px-1.5 py-0.5 rounded bg-muted text-muted-foreground text-[10px] font-medium"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              )}
+
+            {/* Headline */}
+            <h3 className="mt-4 text-lg sm:text-xl font-bold leading-snug group-hover:text-primary transition-colors line-clamp-2">
+              {post.title}
+            </h3>
+
+            {/* Meta row: clock + read time  •  calendar + date */}
+            <div className="mt-3 flex items-center gap-4 text-sm text-muted-foreground">
+              <span className="inline-flex items-center gap-1.5">
+                <Clock className="w-3.5 h-3.5" />
+                {String(post.readingTime).padStart(2, "0")} min read
+              </span>
+              <span className="inline-flex items-center gap-1.5">
+                <Calendar className="w-3.5 h-3.5" />
+                {new Date(post.date).toLocaleDateString("en-US", {
+                  month: "short",
+                  day: "numeric",
+                  year: "numeric",
+                })}
+              </span>
             </div>
           </Link>
         ))}

@@ -98,3 +98,16 @@ export function getPost(slug: string): Post | null {
 export function getAllSlugs(): string[] {
   return getSlugs();
 }
+
+/** Estimate reading time (minutes) from a markdown body. Strips code
+ *  blocks and markdown syntax, counts words at ~200 wpm. Used on the home
+ *  page's Articles cards so we can show "06 min read" without loading the
+ *  full post on the client. */
+export function readingTime(markdown: string): number {
+  const words = markdown
+    .replace(/```[\s\S]*?```/g, " ")
+    .replace(/[#*_>`-]/g, " ")
+    .split(/\s+/)
+    .filter(Boolean).length;
+  return Math.max(1, Math.ceil(words / 200));
+}

@@ -20,6 +20,7 @@ interface ArticleCard {
   excerpt: string;
   cover?: string;
   tags: string[];
+  readingTime: number;
 }
 
 export function HomeClient({ posts }: { posts: ArticleCard[] }) {
