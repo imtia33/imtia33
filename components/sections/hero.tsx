@@ -96,7 +96,7 @@ export function Hero({ setRef }: HeroProps) {
                 asChild
               >
                 <a
-                  href="/imtiaz-resume.pdf"
+                  href="/ImtiazRoyhan-Resume.docx"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
