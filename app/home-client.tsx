@@ -96,16 +96,42 @@ export function HomeClient({ posts }: { posts: ArticleCard[] }) {
     <div className="min-h-screen bg-background text-foreground relative">
       <Navbar activeSection={activeSection} scrollToSection={scrollToSection} />
 
-      <main className="max-w-6xl mx-auto px-6 sm:px-8 lg:px-16">
-        <Hero setRef={(el) => (sectionsRef.current[0] = el)} />
-        <GithubActivity />
-        <Experience setRef={(el) => (sectionsRef.current[1] = el)} />
-        <Education setRef={(el) => (sectionsRef.current[5] = el)} />
-        <Articles setRef={(el) => (sectionsRef.current[6] = el)} posts={posts} />
-        <Works setRef={(el) => (sectionsRef.current[2] = el)} />
-        <Skills setRef={(el) => (sectionsRef.current[3] = el)} />
-        <Connect setRef={(el) => (sectionsRef.current[4] = el)} />
-        <Footer isDark={isDark} toggleTheme={toggleTheme} />
+      <main className="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-16">
+        {/*
+          "Darth Vader Arrives" profile effect (real Discord APNG, fetched via
+          the DexAssets API + bundled locally at /public/profile-effects/darth-vader.apng).
+          MOBILE ONLY (hidden on desktop). Absolutely positioned at the very top
+          z-index so it overlays EVERY element (navbar, profile picture, text,
+          cards…). The APNG itself has transparent areas, so the Vader figure
+          visibly covers the components beneath it while letting the page show
+          through elsewhere. It is `pointer-events-none` so taps/clicks still
+          pass through to the real UI underneath. object-contain keeps the full
+          450x880 figure visible (never cropped/distorted) and responsive.
+        */}
+        <div className="vader-backdrop pointer-events-none fixed inset-0 z-[9999] overflow-hidden lg:hidden">
+          <img
+            src="/profile-effects/darth-vader.apng"
+            alt="Darth Vader Arrives — Discord profile effect"
+            className="vader-effect-img absolute left-1/2 top-1/2 h-full w-auto max-w-none -translate-x-1/2 -translate-y-1/2 object-contain opacity-100"
+            draggable={false}
+            aria-hidden
+          />
+        </div>
+
+        <div className="relative z-10 max-w-6xl mx-auto w-full">
+          <Hero setRef={(el) => (sectionsRef.current[0] = el)} />
+          <GithubActivity />
+          <Experience setRef={(el) => (sectionsRef.current[1] = el)} />
+          <Education setRef={(el) => (sectionsRef.current[5] = el)} />
+          <Articles
+            setRef={(el) => (sectionsRef.current[6] = el)}
+            posts={posts}
+          />
+          <Works setRef={(el) => (sectionsRef.current[2] = el)} />
+          <Skills setRef={(el) => (sectionsRef.current[3] = el)} />
+          <Connect setRef={(el) => (sectionsRef.current[4] = el)} />
+          <Footer isDark={isDark} toggleTheme={toggleTheme} />
+        </div>
       </main>
 
       

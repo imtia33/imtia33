@@ -125,8 +125,22 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geist.variable} ${almarai.variable} ${playfair.variable}`}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${geist.variable} ${almarai.variable} ${playfair.variable} dark`}
+    >
       <head>
+        {/* No-FOUC theme guard: force dark theme on first paint. The portfolio's
+            default is dark; the home/blog clients toggle the `dark` class later
+            in a useEffect, but without this the initial server-rendered HTML
+            would briefly paint in light mode before the effect runs. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){try{var d=document.documentElement;d.classList.add('dark');}catch(e){}})();",
+          }}
+        />
         {/* KaTeX stylesheet for blog math (rendered server-side via rehype-katex) */}
         <link
           rel="stylesheet"

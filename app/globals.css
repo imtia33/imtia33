@@ -538,3 +538,11 @@ img.appwrite-wordmark {
 .prose-blog p + div {
   margin-top: 1.5em;
 }
+
+/* "Darth Vader Arrives" profile effect — the bundled APNG (450x880, 60 frames)
+   animates on its own; no extra glow/border/label is added. It lives inside
+   the <main> container that wraps every landing-page section. */
+.vader-effect-img {
+  -webkit-user-drag: none;
+  user-select: none;
+}

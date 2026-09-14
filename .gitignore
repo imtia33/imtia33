@@ -30,3 +30,20 @@ next-env.d.ts
 dev.log
 dev.pid
 start-daemon.sh
+
+# === sandbox-only artifacts (never push these) ===
+/.zscripts/
+/Caddyfile
+/tool-results/
+/mini-services/
+/prisma/
+/db/
+/examples/
+/skills/
+/tests/
+/upload/
+/download/
+/skills/
+*.log
+.gitbackup
+bun.lock
