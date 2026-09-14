@@ -96,42 +96,40 @@ export function HomeClient({ posts }: { posts: ArticleCard[] }) {
     <div className="min-h-screen bg-background text-foreground relative">
       <Navbar activeSection={activeSection} scrollToSection={scrollToSection} />
 
-      <main className="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-16">
-        {/*
-          "Darth Vader Arrives" profile effect (real Discord APNG, fetched via
-          the DexAssets API + bundled locally at /public/profile-effects/darth-vader.apng).
-          MOBILE ONLY (hidden on desktop). Absolutely positioned at the very top
-          z-index so it overlays EVERY element (navbar, profile picture, text,
-          cards…). The APNG itself has transparent areas, so the Vader figure
-          visibly covers the components beneath it while letting the page show
-          through elsewhere. It is `pointer-events-none` so taps/clicks still
-          pass through to the real UI underneath. object-contain keeps the full
-          450x880 figure visible (never cropped/distorted) and responsive.
-        */}
-        <div className="vader-backdrop pointer-events-none fixed inset-0 z-[9999] overflow-hidden lg:hidden">
-          <img
-            src="/profile-effects/darth-vader.apng"
-            alt="Darth Vader Arrives — Discord profile effect"
-            className="vader-effect-img absolute left-1/2 top-1/2 h-full w-auto max-w-none -translate-x-1/2 -translate-y-1/2 object-contain opacity-100"
-            draggable={false}
-            aria-hidden
-          />
-        </div>
+      {/*
+        "Darth Vader Arrives" profile effect (real Discord APNG, fetched via the
+        DexAssets API + bundled locally at /public/profile-effects/darth-vader.apng).
+        MOBILE ONLY (hidden on desktop). Rendered as a sibling of <main> (NOT
+        nested inside it) so it is completely unaffected by <main>'s horizontal
+        padding / max-width. `fixed inset-0` makes it span the FULL viewport
+        edge-to-edge; the <img> is `w-full h-full object-cover` so the APNG
+        fills the entire screen with no gaps. Top z-index (z-[9999]) so it
+        overlays every element. `pointer-events-none` so taps pass through to
+        the real UI underneath. `overflow-hidden` clips any overflow.
+      */}
+      <div className="vader-backdrop pointer-events-none fixed inset-0 z-[9999] overflow-hidden lg:hidden">
+        <img
+          src="/profile-effects/darth-vader.apng"
+          alt="Darth Vader Arrives — Discord profile effect"
+          className="vader-effect-img h-full w-full object-cover opacity-100"
+          draggable={false}
+          aria-hidden
+        />
+      </div>
 
-        <div className="relative z-10 max-w-6xl mx-auto w-full">
-          <Hero setRef={(el) => (sectionsRef.current[0] = el)} />
-          <GithubActivity />
-          <Experience setRef={(el) => (sectionsRef.current[1] = el)} />
-          <Education setRef={(el) => (sectionsRef.current[5] = el)} />
-          <Articles
-            setRef={(el) => (sectionsRef.current[6] = el)}
-            posts={posts}
-          />
-          <Works setRef={(el) => (sectionsRef.current[2] = el)} />
-          <Skills setRef={(el) => (sectionsRef.current[3] = el)} />
-          <Connect setRef={(el) => (sectionsRef.current[4] = el)} />
-          <Footer isDark={isDark} toggleTheme={toggleTheme} />
-        </div>
+      <main className="relative z-10 max-w-6xl mx-auto px-6 sm:px-8 lg:px-16">
+        <Hero setRef={(el) => (sectionsRef.current[0] = el)} />
+        <GithubActivity />
+        <Experience setRef={(el) => (sectionsRef.current[1] = el)} />
+        <Education setRef={(el) => (sectionsRef.current[5] = el)} />
+        <Articles
+          setRef={(el) => (sectionsRef.current[6] = el)}
+          posts={posts}
+        />
+        <Works setRef={(el) => (sectionsRef.current[2] = el)} />
+        <Skills setRef={(el) => (sectionsRef.current[3] = el)} />
+        <Connect setRef={(el) => (sectionsRef.current[4] = el)} />
+        <Footer isDark={isDark} toggleTheme={toggleTheme} />
       </main>
 
       
