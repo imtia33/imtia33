@@ -14,7 +14,7 @@ export function Works({ setRef }: WorksProps) {
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4">
           <h2 className="text-3xl sm:text-4xl font-light">My Works</h2>
           <div className="text-sm text-muted-foreground font-mono">
-            2023 — 2026
+            2023 - 2026
           </div>
         </div>
 

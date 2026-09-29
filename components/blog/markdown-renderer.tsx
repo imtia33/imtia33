@@ -9,7 +9,7 @@ import { ChartBlock } from "./chart-block";
 import { CodeBlock } from "./code-block";
 
 /**
- * MarkdownRenderer — renders markdown content with:
+ * MarkdownRenderer - renders markdown content with:
  *   • GitHub-Flavored Markdown (tables, strikethrough, task lists) via remark-gfm
  *   • Fenced code blocks with a copy button (CodeBlock)
  *   • `mermaid` fenced blocks → MermaidDiagram (client-rendered SVG)
@@ -71,7 +71,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
               </code>
             );
           },
-          // `pre` wraps block `code` — we let our CodeBlock/Mermaid/Chart
+          // `pre` wraps block `code` - we let our CodeBlock/Mermaid/Chart
           // wrappers provide their own container, so pass children through.
           pre({ children }) {
             return <>{children}</>;

@@ -5,7 +5,7 @@ import {
   Globe,
   ChevronDown,
   ChevronUp,
-  ExternalLink,
+  BookOpen,
   Check,
   CircleDashed,
 } from "lucide-react";
@@ -19,7 +19,7 @@ interface ExperienceProps {
 }
 
 /* ───────────────────────────────────────────────────────────────────────
- *  Platform badge — real brand SVG icon + platform name, tinted with the
+ *  Platform badge: real brand SVG icon + platform name, tinted with the
  *  brand's official color. Used inside each timeline item's content.
  * ─────────────────────────────────────────────────────────────────────── */
 function PlatformBadge({ platform }: { platform: string }) {
@@ -42,7 +42,7 @@ function PlatformBadge({ platform }: { platform: string }) {
 }
 
 /* ───────────────────────────────────────────────────────────────────────
- *  Status pill — "Done" (green) or "Pending" (muted)
+ *  Status pill: "Done" (green) or "Pending" (muted)
  * ─────────────────────────────────────────────────────────────────────── */
 function StatusPill({ done }: { done: boolean }) {
   return (
@@ -70,16 +70,17 @@ type Feature = {
 };
 
 /* ───────────────────────────────────────────────────────────────────────
- *  Feature timeline — built on the HeroUI Pro Timeline component.
+ *  Feature timeline: built on the HeroUI Pro Timeline component.
  *  Each feature is a Timeline.Item:
  *    • Marker  = a static status icon (Check for done, CircleDashed for
- *                pending). The brand icons are NOT used in the markers —
+ *                pending). The brand icons are NOT used in the markers:
  *                they already appear in the platform badges beside the text.
  *    • Content = platform badge + status pill + title + description +
- *                (optional) PR link + (optional) rounded preview image
+ *                (optional) blog link + (optional) rounded preview image
+ *                The blog link only renders when the feature has a `link`
+ *                AND is marked done. No link means no button.
  *  To mark a feature complete, flip its `status` from "pending" → "done"
- *  in constants/data.ts — the marker turns into a green check and the PR
- *  link appears.
+ *  in constants/data.ts. The marker turns into a green check.
  * ─────────────────────────────────────────────────────────────────────── */
 function FeatureTimeline({ features }: { features: Feature[] }) {
   const doneCount = features.filter((f) => f.status === "done").length;
@@ -101,7 +102,7 @@ function FeatureTimeline({ features }: { features: Feature[] }) {
 
           return (
             <Timeline.Item key={index} status={status}>
-              {/* Status marker — Check for done, static CircleDashed for pending.
+              {/* Status marker: Check for done, static CircleDashed for pending.
                   No className is passed so the HeroUI CSS sizes the icon and
                   the absolute-centering rule in our globals.css centers it. */}
               <Timeline.Marker status={status}>
@@ -130,7 +131,7 @@ function FeatureTimeline({ features }: { features: Feature[] }) {
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-1.5 text-xs font-bold hover:text-primary transition-colors w-fit mt-2"
                   >
-                    <ExternalLink className="w-3.5 h-3.5" /> View PR
+                    <BookOpen className="w-3.5 h-3.5" /> View Blog
                   </a>
                 )}
                 {feature.image && (
@@ -176,11 +177,11 @@ function CompanyLogo({ src, alt }: { src: string; alt: string }) {
 }
 
 /* ───────────────────────────────────────────────────────────────────────
- *  renderPoint — converts a plain-text bullet point into HTML.
+ *  renderPoint: converts a plain-text bullet point into HTML.
  *   1. Bolds a curated set of keywords (Appwrite is replaced with the
  *      wordmark below, so it's excluded from this list).
  *   2. Replaces "Appwrite" with a theme-aware wordmark image (black text on
- *      light theme, white text on dark theme) — the official Appwrite
+ *      light theme, white text on dark theme), the official Appwrite
  *      logotype. Sits inline like text.
  *   3. Turns "Matej Bačo" into an inline embedded link (with a small
  *      arrow icon) that opens his portfolio in a new tab.

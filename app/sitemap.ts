@@ -1,14 +1,16 @@
 import type { MetadataRoute } from "next";
 import { getAllSlugs } from "@/lib/posts";
+import { getAllStorySlugs } from "@/lib/reverse-stories";
 
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://axistro.dev";
 
 /**
- * sitemap.ts — auto-generated sitemap.xml for Google indexing.
+ * sitemap.ts - auto-generated sitemap.xml for Google indexing.
  *
- * Includes the home page, blog listing, and every blog post. Blog posts get
- * a higher priority + lastModified date so Google knows they're fresh content.
+ * Includes the home page, blog listing, every blog post, and every reverse
+ * engineering story page. Posts/stories get a higher priority + lastModified
+ * date so Google knows they're fresh content.
  */
 export default function sitemap(): MetadataRoute.Sitemap {
   const now = new Date();
@@ -35,5 +37,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.8,
   }));
 
-  return [...staticPages, ...postPages];
+  const storyPages: MetadataRoute.Sitemap = getAllStorySlugs().map((slug) => ({
+    url: `${SITE_URL}/reverse-engineering/${slug}`,
+    lastModified: now,
+    changeFrequency: "monthly",
+    priority: 0.8,
+  }));
+
+  return [...staticPages, ...postPages, ...storyPages];
 }

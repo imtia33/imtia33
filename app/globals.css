@@ -73,7 +73,7 @@
   --sidebar-border: 30 41 59;
   --sidebar-ring: 21 128 61;
 
-  /* HeroUI Pro Timeline — dark mode overrides */
+  /* HeroUI Pro Timeline - dark mode overrides */
   --color-separator: oklch(0.45 0 0);
   --accent-soft: oklch(0.2 0.03 260);
 }
@@ -116,7 +116,7 @@
   --color-sidebar-border: rgb(var(--sidebar-border));
   --color-sidebar-ring: rgb(var(--sidebar-ring));
 
-  /* HeroUI Pro Timeline — status & separator colors */
+  /* HeroUI Pro Timeline - status & separator colors */
   --color-success: oklch(0.55 0.2 150);
   --color-warning: oklch(0.7 0.18 70);
   --color-danger: oklch(0.55 0.22 25);
@@ -200,7 +200,7 @@ img.appwrite-wordmark {
 
 /* ===========================================================================
  * HeroUI Pro Timeline Component Styles
- * (merged from provided globals.css — works with the green theme above)
+ * (merged from provided globals.css - works with the green theme above)
  * =========================================================================== */
 
 .timeline {
@@ -365,7 +365,7 @@ img.appwrite-wordmark {
 .dark .timeline__marker[data-status=warning] { background: radial-gradient(circle at 30% 30%, color-mix(in srgb, var(--color-warning) 30%, transparent), color-mix(in srgb, var(--color-warning) 10%, transparent) 70%); border-color: color-mix(in srgb, var(--color-warning) 60%, var(--timeline-marker-border)); color: var(--color-warning); }
 .dark .timeline__marker[data-status=danger] { background: radial-gradient(circle at 30% 30%, color-mix(in srgb, var(--color-danger) 30%, transparent), color-mix(in srgb, var(--color-danger) 10%, transparent) 70%); border-color: color-mix(in srgb, var(--color-danger) 60%, var(--timeline-marker-border)); color: var(--color-danger); }
 
-/* Mobile responsive — center axis collapses to start */
+/* Mobile responsive - center axis collapses to start */
 @media (max-width: 639px) {
   .timeline--axis-center .timeline__item { grid-template-columns: var(--timeline-rail-width) minmax(0, 1fr); column-gap: var(--timeline-gap); }
   .timeline--axis-center .timeline__rail { grid-column: 1; }
@@ -394,11 +394,11 @@ img.appwrite-wordmark {
   color: #3a3530;
   word-wrap: break-word;
 }
-/* Dark-mode blog body color — warm off-white, easier on the eyes than #fff */
+/* Dark-mode blog body color - warm off-white, easier on the eyes than #fff */
 .dark .prose-blog {
   color: #d4cfc6;
 }
-/* Muted text inside blog (captions, etc.) — softer than the body */
+/* Muted text inside blog (captions, etc.) - softer than the body */
 .prose-blog .text-muted-foreground,
 .prose-blog figcaption {
   color: #7a7268;
@@ -408,7 +408,7 @@ img.appwrite-wordmark {
   color: #9a9388;
 }
 
-/* Headings — Playfair Display for an editorial feel */
+/* Headings - Playfair Display for an editorial feel */
 .prose-blog h1,
 .prose-blog h2,
 .prose-blog h3,
@@ -457,7 +457,7 @@ img.appwrite-wordmark {
 .prose-blog li > ul,
 .prose-blog li > ol { margin-top: 0.4em; margin-bottom: 0.4em; }
 
-/* Task list items — no bullet, custom checkbox styling */
+/* Task list items - no bullet, custom checkbox styling */
 .prose-blog li:has(> input[type="checkbox"]) {
   list-style: none;
   padding-left: 0;
@@ -504,7 +504,7 @@ img.appwrite-wordmark {
   background: color-mix(in srgb, var(--color-muted) 50%, transparent);
 }
 
-/* Horizontal rule — hidden inside blog prose. The only "line" we want
+/* Horizontal rule - hidden inside blog prose. The only "line" we want
    under a section is the underline below H2 headings (above). Any stray
    `---` in the markdown renders as an <hr> which we suppress here so no
    long horizontal divider appears between sections. */
@@ -532,14 +532,14 @@ img.appwrite-wordmark {
   margin: 1em 0;
 }
 
-/* Block code spacing — the CodeBlock/Mermaid/Chart wrappers handle their
+/* Block code spacing - the CodeBlock/Mermaid/Chart wrappers handle their
    own padding; ensure paragraphs don't double up margins. */
 .prose-blog > div + p,
 .prose-blog p + div {
   margin-top: 1.5em;
 }
 
-/* "Darth Vader Arrives" profile effect — the bundled APNG (450x880, 60 frames)
+/* "Darth Vader Arrives" profile effect - the bundled APNG (450x880, 60 frames)
    animates on its own; no extra glow/border/label is added. It lives inside
    the <main> container that wraps every landing-page section. */
 .vader-effect-img {

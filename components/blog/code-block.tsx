@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Check, Copy } from "lucide-react";
 
 /**
- * CodeBlock — a fenced code block with a copy-to-clipboard button.
+ * CodeBlock - a fenced code block with a copy-to-clipboard button.
  *
  * Renders the code in a <pre><code> with a header showing the language and
  * a copy button. The actual syntax highlighting is handled by the markdown
@@ -26,7 +26,7 @@ export function CodeBlock({ language, code }: CodeBlockProps) {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      // clipboard may be unavailable (non-secure context) — ignore
+      // clipboard may be unavailable (non-secure context) - ignore
     }
   };
 

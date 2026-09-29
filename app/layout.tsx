@@ -24,7 +24,7 @@ const playfair = Playfair_Display({
 });
 
 /**
- * Root layout — max SEO metadata + KaTeX stylesheet for blog math.
+ * Root layout - max SEO metadata + KaTeX stylesheet for blog math.
  *
  * `metadataBase` is REQUIRED for relative OG/Twitter image URLs to resolve
  * correctly and for canonical URLs to work. Update SITE_URL to your
@@ -90,7 +90,7 @@ export const metadata: Metadata = {
         url: "/profile.png",
         width: 1200,
         height: 630,
-        alt: "Imtiaz Royhan — App Developer & Appwrite Contributor",
+        alt: "Imtiaz Royhan | App Developer & Appwrite Contributor",
       },
     ],
     locale: "en_US",
@@ -193,7 +193,7 @@ export default function RootLayout({
                   "@type": "Blog",
                   "@id": `${SITE_URL}/blog/#blog`,
                   url: `${SITE_URL}/blog`,
-                  name: "Imtiaz Royhan — Blog",
+                  name: "Imtiaz Royhan | Blog",
                   publisher: { "@id": `${SITE_URL}/#person` },
                   description:
                     "Articles on Appwrite, React Native, caching, delta sync, and backend engineering.",

@@ -1,8 +1,8 @@
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, Calendar } from "lucide-react";
-import { getAllSlugs, getPost, readingTime } from "@/lib/posts";
+import { ArrowLeft, Calendar, KeyRound } from "lucide-react";
+import { getAllStorySlugs, getStory, readingTime } from "@/lib/reverse-stories";
 import { BlogHeader } from "@/components/blog/blog-header";
 import { MarkdownRenderer } from "@/components/blog/markdown-renderer";
 import { SmoothScroll } from "@/components/blog/smooth-scroll";
@@ -10,12 +10,12 @@ import { SmoothScroll } from "@/components/blog/smooth-scroll";
 const SITE_URL =
   process.env.NEXT_PUBLIC_SITE_URL || "https://axistro.dev";
 
-/** Pre-render every post at build time (content is hardcoded, no DB). */
+/** Pre-render every story at build time (content is hardcoded, no DB). */
 export function generateStaticParams() {
-  return getAllSlugs().map((slug) => ({ slug }));
+  return getAllStorySlugs().map((slug) => ({ slug }));
 }
 
-/** Per-post metadata for SEO + social sharing. */
+/** Per-story metadata for SEO + social sharing. */
 export function generateMetadata({
   params,
 }: {
@@ -23,23 +23,23 @@ export function generateMetadata({
 }): Promise<Metadata> {
   return (async () => {
     const { slug } = await params;
-    const post = getPost(slug);
-    if (!post) return { title: "Post not found" };
-    const url = `${SITE_URL}/blog/${slug}`;
-    const ogImage = post.cover
-      ? post.cover.startsWith("http")
-        ? post.cover
-        : `${SITE_URL}${post.cover}`
+    const story = getStory(slug);
+    if (!story) return { title: "Story not found" };
+    const url = `${SITE_URL}/reverse-engineering/${slug}`;
+    const ogImage = story.cover
+      ? story.cover.startsWith("http")
+        ? story.cover
+        : `${SITE_URL}${story.cover}`
       : `${SITE_URL}/profile.png`;
     return {
-      title: post.title,
-      description: post.excerpt || post.description,
-      keywords: post.keywords ?? post.tags,
-      authors: [{ name: post.author, url: SITE_URL }],
-      creator: post.author,
+      title: story.title,
+      description: story.excerpt || story.description,
+      keywords: story.keywords ?? story.tags,
+      authors: [{ name: story.author, url: SITE_URL }],
+      creator: story.author,
       publisher: "Imtiaz Royhan",
       alternates: {
-        canonical: post.canonical || url,
+        canonical: url,
       },
       robots: {
         index: true,
@@ -53,8 +53,8 @@ export function generateMetadata({
         },
       },
       openGraph: {
-        title: post.title,
-        description: post.excerpt || post.description,
+        title: story.title,
+        description: story.excerpt || story.description,
         url,
         siteName: "Imtiaz Royhan",
         images: [
@@ -62,19 +62,19 @@ export function generateMetadata({
             url: ogImage,
             width: 1200,
             height: 630,
-            alt: post.title,
+            alt: story.title,
           },
         ],
         locale: "en_US",
         type: "article",
-        publishedTime: new Date(post.date).toISOString(),
-        authors: [post.author],
-        tags: post.tags,
+        publishedTime: new Date(story.date).toISOString(),
+        authors: [story.author],
+        tags: story.tags,
       },
       twitter: {
         card: "summary_large_image",
-        title: post.title,
-        description: post.excerpt || post.description,
+        title: story.title,
+        description: story.excerpt || story.description,
         images: [ogImage],
         creator: "@imtia33",
       },
@@ -82,55 +82,53 @@ export function generateMetadata({
   })();
 }
 
-export default async function BlogPostPage({
+export default async function ReverseStoryPage({
   params,
 }: {
   params: Promise<{ slug: string }>;
 }) {
   const { slug } = await params;
-  const post = getPost(slug);
-  if (!post) notFound();
+  const story = getStory(slug);
+  if (!story) notFound();
 
-  const url = `${SITE_URL}/blog/${slug}`;
-  const minutes = readingTime(post.content);
-  const ogImage = post.cover
-    ? post.cover.startsWith("http")
-      ? post.cover
-      : `${SITE_URL}${post.cover}`
+  const url = `${SITE_URL}/reverse-engineering/${slug}`;
+  const minutes = readingTime(story.content);
+  const ogImage = story.cover
+    ? story.cover.startsWith("http")
+      ? story.cover
+      : `${SITE_URL}${story.cover}`
     : `${SITE_URL}/profile.png`;
 
   // JSON-LD Article structured data → rich Google results (Article schema)
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "BlogPosting",
+    "@type": "Article",
     "@id": `${url}#article`,
-    headline: post.title,
-    description: post.excerpt || post.description,
+    headline: story.title,
+    description: story.excerpt || story.description,
     image: [ogImage],
-    datePublished: new Date(post.date).toISOString(),
-    dateModified: new Date(post.date).toISOString(),
+    datePublished: new Date(story.date).toISOString(),
+    dateModified: new Date(story.date).toISOString(),
     author: {
       "@type": "Person",
       "@id": `${SITE_URL}/#person`,
-      name: post.author,
+      name: story.author,
       url: SITE_URL,
     },
     publisher: {
       "@type": "Person",
       "@id": `${SITE_URL}/#person`,
       name: "Imtiaz Royhan",
-      url: SITE_URL,
       image: `${SITE_URL}/profile.png`,
     },
     mainEntityOfPage: {
       "@type": "WebPage",
       "@id": url,
     },
-    keywords: (post.keywords ?? post.tags).join(", "),
-    articleSection: "Technology",
-    wordCount: post.content.split(/\s+/).length,
+    keywords: (story.keywords ?? story.tags).join(", "),
+    articleSection: "Reverse Engineering",
+    wordCount: story.content.split(/\s+/).length,
     url,
-    isPartOf: { "@id": `${SITE_URL}/blog/#blog` },
   };
 
   return (
@@ -142,8 +140,16 @@ export default async function BlogPostPage({
       />
       <BlogHeader />
       <main className="mx-auto max-w-3xl px-4 sm:px-6 py-12 sm:py-16">
-        <article itemScope itemType="https://schema.org/BlogPosting">
-          {/* Post header - centered editorial layout (title, excerpt, date
+        <article itemScope itemType="https://schema.org/Article">
+          {/* "Reverse Engineering" banner pill */}
+          <div className="mb-8 flex justify-center">
+            <span className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-xs font-bold uppercase tracking-widest text-primary">
+              <KeyRound className="w-3.5 h-3.5" />
+              Reverse Engineering · The Story
+            </span>
+          </div>
+
+          {/* Story header - centered editorial layout (title, excerpt, date
               pill badge, then full-width cover image) */}
           <header className="mb-12 text-center">
             <h1
@@ -151,23 +157,23 @@ export default async function BlogPostPage({
               style={{ fontFamily: "var(--font-playfair), Georgia, serif" }}
               itemProp="headline"
             >
-              {post.title}
+              {story.title}
             </h1>
-            {(post.excerpt || post.description) && (
+            {(story.excerpt || story.description) && (
               <p
                 className="mx-auto mt-6 max-w-2xl text-base sm:text-lg leading-relaxed opacity-80"
                 style={{ fontFamily: "var(--font-almarai), sans-serif" }}
                 itemProp="description"
               >
-                {post.excerpt || post.description}
+                {story.excerpt || story.description}
               </p>
             )}
             {/* Date in a pill badge with a calendar icon */}
             <div className="mt-8 flex justify-center">
               <span className="inline-flex items-center gap-2 rounded-lg bg-muted px-3 py-1.5 text-xs sm:text-sm font-medium">
                 <Calendar className="w-3.5 h-3.5" />
-                <time dateTime={post.date} itemProp="datePublished">
-                  {new Date(post.date).toLocaleDateString("en-US", {
+                <time dateTime={story.date} itemProp="datePublished">
+                  {new Date(story.date).toLocaleDateString("en-US", {
                     year: "numeric",
                     month: "long",
                     day: "numeric",
@@ -175,15 +181,15 @@ export default async function BlogPostPage({
                 </time>
                 <span aria-hidden className="opacity-40">·</span>
                 <span>{minutes} min read</span>
-                <meta itemProp="author" content={post.author} />
+                <meta itemProp="author" content={story.author} />
               </span>
             </div>
             {/* Cover image - full width, sharp corners */}
-            {post.cover && (
+            {story.cover && (
               <div className="mt-10 overflow-hidden">
                 <img
-                  src={post.cover}
-                  alt={post.title}
+                  src={story.cover}
+                  alt={story.title}
                   className="w-full h-auto object-cover"
                   itemProp="image"
                 />
@@ -192,9 +198,9 @@ export default async function BlogPostPage({
           </header>
 
           {/* Tags row (kept compact, left-aligned with the body) */}
-          {post.tags.length > 0 && (
+          {story.tags.length > 0 && (
             <div className="mb-8 flex flex-wrap gap-2">
-              {post.tags.map((tag) => (
+              {story.tags.map((tag) => (
                 <span
                   key={tag}
                   className="inline-flex items-center px-2 py-0.5 rounded-md bg-muted text-muted-foreground text-xs font-medium"
@@ -205,20 +211,29 @@ export default async function BlogPostPage({
             </div>
           )}
 
-          {/* Post body - SSR markdown → client-rendered interactive bits */}
+          {/* Story body - SSR markdown → client-rendered interactive bits */}
           <div itemProp="articleBody">
-            <MarkdownRenderer content={post.content} />
+            <MarkdownRenderer content={story.content} />
           </div>
 
-          {/* Back link */}
+          {/* Back links */}
           <footer className="mt-16 pt-8 border-t border-border">
-            <Link
-              href="/blog"
-              className="inline-flex items-center gap-2 text-sm font-medium hover:text-primary transition-colors"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              All posts
-            </Link>
+            <div className="flex flex-wrap items-center gap-6">
+              <Link
+                href="/"
+                className="inline-flex items-center gap-2 text-sm font-medium hover:text-primary transition-colors"
+              >
+                <ArrowLeft className="w-4 h-4" />
+                Back to portfolio
+              </Link>
+              <Link
+                href="/#reverse-engineering"
+                className="inline-flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary transition-colors"
+              >
+                <KeyRound className="w-4 h-4" />
+                All reverse engineering projects
+              </Link>
+            </div>
           </footer>
         </article>
       </main>

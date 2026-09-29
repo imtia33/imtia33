@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import Lenis from "lenis";
 
 /**
- * SmoothScroll — initializes Lenis smooth scrolling for the blog.
+ * SmoothScroll - initializes Lenis smooth scrolling for the blog.
  *
  * The main portfolio sets up Lenis in home-client.tsx, but the blog lives on
  * separate routes (/blog, /blog/[slug]) that don't use HomeClient. This

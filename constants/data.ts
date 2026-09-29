@@ -6,13 +6,13 @@ export const experiences = [
     logo: "/avatars/appwrite.svg",
     website: "https://appwrite.io/",
     points: [
-      "Building backend features at Appwrite — the open-source, self-hosted backend-as-a-service platform that gives developers authentication, databases, storage, functions, and real-time capabilities out of the box.",
+      "Building backend features at Appwrite, the open-source, self-hosted backend-as-a-service platform that gives developers authentication, databases, storage, functions, and real-time capabilities out of the box.",
       "Working alongside Matej Bačo (Engineering Lead at Appwrite) on core authentication and backend platform features.",
       "Building features that simplify backend development for thousands of Appwrite users.",
     ],
     /*
      * ─────────────────────────────────────────────────────────────────────
-     *  FEATURE TIMELINE  —  Appwrite backend contributions
+     *  FEATURE TIMELINE: Appwrite backend contributions
      * ─────────────────────────────────────────────────────────────────────
      *  Each feature below has a `status` field. To mark a feature as
      *  completed from the GitHub repo, simply change its `status` value
@@ -23,10 +23,10 @@ export const experiences = [
      *  `title`        : short label of the feature.
      *  `description`  : one-line explanation of the feature.
      *  `status`       : "done" | "pending"
-     *  `link`         : (optional) PR / docs / issue URL — shown when the
-     *                   feature is marked `status: "done"`. Replace the
-     *                   placeholder PR-search links below with the exact
-     *                   pull-request URL once it is merged.
+     *  `link`         : (optional) blog / docs URL. Rendered as a
+     *                   "View Blog" button when the feature is marked
+     *                   `status: "done"`. Leave it out entirely when no
+     *                   blog exists and no button will be shown.
      *  `image`        : (optional) path to a preview/banner image (e.g. a
      *                   screenshot or announcement graphic) that is shown
      *                   below the feature's text as a rounded thumbnail.
@@ -36,14 +36,14 @@ export const experiences = [
     features: [
       {
         platform: "Appwrite",
-        title: "getPhoto() — OAuth avatar fetching",
+        title: "getPhoto() for OAuth avatar fetching",
         description:
           "Implemented the getPhoto() method to fetch avatar links related to OAuth providers from the Appwrite backend.",
         status: "done",
-        link: "https://github.com/appwrite/appwrite/pulls?q=avatar+oauth",
+        link: "https://appwrite.io/blog/post/announcing-user-photos",
         image: "/images/get-photo.jpg",
         imageAlt:
-          "Appwrite functionality — getPhoto method for universal avatar fetching across all user profile sources",
+          "Appwrite functionality: getPhoto method for universal avatar fetching across all user profile sources",
       },
       {
         platform: "Cloudflare",
@@ -51,30 +51,30 @@ export const experiences = [
         description:
           "Added Cloudflare as an OAuth2 authentication provider in the Appwrite backend.",
         status: "done",
-        link: "https://github.com/appwrite/appwrite/pulls?q=cloudflare+oauth",
         image: "/images/cloudflare-add.png",
         imageAlt:
-          "Cloudflare is now on Appwrite — manage DNS, Workers, R2 and more from your Appwrite project",
+          "Cloudflare is now on Appwrite: manage DNS, Workers, R2 and more from your Appwrite project",
       },
       {
         platform: "Appwrite",
-        title: "setPhoto() — direct photo upload",
+        title: "updatePhoto() for direct photo upload",
         description:
-          "Building setPhoto() to let users upload any photo directly to the Appwrite backend — removing the storage management hassle for developers.",
-        status: "pending",
+          "Implemented updatePhoto() to let users upload any photo directly to the Appwrite backend, removing the storage management hassle for developers.",
+        status: "done",
+        link: "https://appwrite.io/blog/post/announcing-user-photos",
         image: "/images/set-photo.jpg",
         imageAlt:
-          "Appwrite functionality — setPhoto method for direct photo uploading to the Appwrite backend",
+          "Appwrite functionality: updatePhoto method for direct photo uploading to the Appwrite backend",
       },
       {
         platform: "Appwrite",
-        title: "OTP — Email verification, Password reset & Teams Invite",
+        title: "OTP for Email verification, Password reset & Teams Invite",
         description:
-          "Extending Appwrite's verification system with an OTP method (code-based) for Email verification, Password reset, and the Teams Invite API — an alternative to magic-URL verification that is hard to implement on mobile apps relying on deep links.",
-        status: "pending",
+          "Extended Appwrite's verification system with an OTP method (code-based) for Email verification, Password reset, and the Teams Invite API, an alternative to magic-URL verification that is hard to implement on mobile apps relying on deep links.",
+        status: "done",
         image: "/images/otp.jpg",
         imageAlt:
-          "Appwrite functionality — OTP (one-time password) support for Password Reset and Email Verification, with enhanced security for account actions",
+          "Appwrite functionality: OTP (one-time password) support for Password Reset and Email Verification, with enhanced security for account actions",
       },
       {
         platform: "Vercel",
@@ -82,10 +82,9 @@ export const experiences = [
         description:
           "Added an integration with Vercel so developers can use Vercel's features while keeping Appwrite as their primary backend.",
         status: "done",
-        link: "https://github.com/appwrite/appwrite/pull/13546",
         image: "/images/vercel.png",
         imageAlt:
-          "Vercel is now on Appwrite — use Vercel's features while keeping Appwrite as your primary backend",
+          "Vercel is now on Appwrite: use Vercel's features while keeping Appwrite as your primary backend",
       },
       {
         platform: "Supabase",
@@ -283,6 +282,41 @@ export const projects = [
       github: "https://github.com/imtia33/Projects/tree/main/pro%20back",
     },
     image: "/images/chat-app.png",
+  },
+];
+
+/*
+ * ─────────────────────────────────────────────────────────────────────────
+ *  REVERSE ENGINEERING
+ *
+ *  A dedicated section for projects born from taking platforms apart.
+ *  The home-page cards look like the "My Works" project cards, but instead
+ *  of external links they redirect to a full story page under
+ *  /reverse-engineering/[slug] (markdown-driven, blog-style editorial layout).
+ * ─────────────────────────────────────────────────────────────────────────
+ */
+export const reverseProjects = [
+  {
+    year: "2026",
+    role: "AI Platform Client",
+    company: "Mobile & Windows App",
+    description:
+      "A great AI platform with a painfully slow web app. I reverse engineered its entire private API, from authentication to chat completion, workspace and agent chat, and rebuilt the experience as a fast, native mobile & Windows app.",
+    tech: ["Reverse Engineering", "API", "Mobile", "Windows"],
+    anonymous: true,
+    image: "/images/ai-platform-client.png",
+    story: "/reverse-engineering/ai-platform-client",
+  },
+  {
+    year: "2026",
+    role: "Framer Sites Clone",
+    company: "Breaking the vendor lock-in",
+    description:
+      "Framer never lets you export. Raw site files are 50-60K lines of jargon per page with text split into single characters. Months of pattern analysis turned into two scripts: one that clones an entire Framer site, one that cleans the jargon into beautiful React components.",
+    tech: ["Reverse Engineering", "Pattern Recognition", "React"],
+    anonymous: false,
+    image: "/images/bridge-marketing.png",
+    story: "/reverse-engineering/framer-sites-clone",
   },
 ];
 

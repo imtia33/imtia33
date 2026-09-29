@@ -55,7 +55,7 @@ export default function BlogIndexPage() {
     "@type": "Blog",
     "@id": `${SITE_URL}/blog/#blog`,
     url: `${SITE_URL}/blog`,
-    name: "Imtiaz Royhan — Blog",
+    name: "Imtiaz Royhan | Blog",
     description:
       "Articles on Appwrite, React Native, delta sync, caching, and backend engineering.",
     publisher: { "@id": `${SITE_URL}/#person` },

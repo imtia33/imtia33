@@ -74,11 +74,11 @@ export function Hero({ setRef }: HeroProps) {
 
           <div className="space-y-6 max-w-md">
             <p className="text-lg sm:text-xl text-muted-foreground leading-relaxed">
-              I am a developer dedicated to blending
-              <span className="text-foreground"> design</span>,
-              <span className="text-foreground"> technology</span>, and
-              <span className="text-foreground"> personal experience</span> into
-              every project I build.
+              I'm a <span className="text-foreground">mobile app developer</span>{" "}
+              with a <span className="text-foreground">backend heart</span> and
+              a <span className="text-foreground">reverse engineer's curiosity</span>.
+              I take platforms apart to understand how they think, then build
+              experiences that feel fast, native, and effortless.
             </p>
 
             <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:gap-6 text-sm text-muted-foreground">
@@ -125,7 +125,7 @@ export function Hero({ setRef }: HeroProps) {
               <div className="text-foreground">Student</div>
               <div className="text-muted-foreground">@IIUC</div>
               <div className="text-xs text-muted-foreground">
-                2023 — Present
+                2023 - Present
               </div>
             </div>
           </div>

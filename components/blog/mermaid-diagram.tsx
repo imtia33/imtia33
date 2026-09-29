@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import mermaid from "mermaid";
 
 /**
- * MermaidDiagram — renders a mermaid diagram definition to SVG on the client.
+ * MermaidDiagram - renders a mermaid diagram definition to SVG on the client.
  *
  * Mermaid can't run during SSR (it needs the DOM), so this component renders
  * a small placeholder during SSR/hydration and then swaps in the real SVG

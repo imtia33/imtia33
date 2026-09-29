@@ -1,5 +1,5 @@
 /**
- * Timeline — EXACT reconstruction from HeroUI Pro's compiled bundle.
+ * Timeline - EXACT reconstruction from HeroUI Pro's compiled bundle.
  * 
  * Original module ID: 326975
  * Uses exact class names and CSS custom properties as defined in global.css
@@ -9,7 +9,7 @@ import React, { createContext, use, useMemo } from "react";
 import { tv } from "tailwind-variants";
 
 // ---------------------------------------------------------------------------
-// Variants / slot classes — EXACT from HeroUI Pro source
+// Variants / slot classes - EXACT from HeroUI Pro source
 // ---------------------------------------------------------------------------
 
 const timelineStyles = tv({
@@ -355,7 +355,7 @@ const TimelineRail = ({ children, className, ...rest }: TimelineRailProps) => {
 };
 
 // ---------------------------------------------------------------------------
-// Status-based inline SVG icons — EXACT paths from HeroUI Pro
+// Status-based inline SVG icons - EXACT paths from HeroUI Pro
 // ---------------------------------------------------------------------------
 
 interface StatusIconSVGProps {

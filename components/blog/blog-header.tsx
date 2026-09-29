@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ArrowLeft, Moon, Sun } from "lucide-react";
 
 /**
- * BlogHeader — sticky top bar for the blog section.
+ * BlogHeader - sticky top bar for the blog section.
  *
  * The main portfolio manages dark mode via an `isDark` state on the home
  * page (defaulting to dark). The blog is a separate route, so this header

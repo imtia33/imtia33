@@ -5,7 +5,7 @@ import { useRef } from "react";
 import { ChevronLeft, ChevronRight, Clock, Calendar } from "lucide-react";
 
 /**
- * Articles — horizontal-scrolling list of blog posts.
+ * Articles - horizontal-scrolling list of blog posts.
  *
  * Card design (matches the provided reference):
  *   • Transparent container (no card border / background / shadow)
@@ -102,7 +102,7 @@ export function Articles({ setRef, posts }: ArticlesProps) {
                   No cover
                 </div>
               )}
-              {/* "Article" badge — top-right white pill */}
+              {/* "Article" badge - top-right white pill */}
               <span className="absolute top-3 right-3 inline-flex items-center px-2.5 py-1 rounded-full bg-white text-black text-[11px] font-bold uppercase tracking-wide shadow-sm">
                 Article
               </span>

@@ -21,7 +21,7 @@ import {
 } from "chart.js";
 
 /**
- * ChartBlock — renders a Chart.js chart from a JSON config string.
+ * ChartBlock - renders a Chart.js chart from a JSON config string.
  *
  * Used by the markdown renderer when a fenced code block is tagged `chart`.
  * The JSON inside the block is parsed and passed to Chart.js as a full

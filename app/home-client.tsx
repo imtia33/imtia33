@@ -7,6 +7,7 @@ import { Hero } from "@/components/sections/hero";
 import { GithubActivity } from "@/components/sections/github-activity";
 import { Experience } from "@/components/sections/experience";
 import { Works } from "@/components/sections/works";
+import { ReverseEngineering } from "@/components/sections/reverse-engineering";
 import { Education } from "@/components/sections/education";
 import { Skills } from "@/components/sections/skills";
 import { Connect } from "@/components/sections/connect";
@@ -110,7 +111,7 @@ export function HomeClient({ posts }: { posts: ArticleCard[] }) {
       <div className="vader-backdrop pointer-events-none fixed inset-0 z-[9999] overflow-hidden lg:hidden">
         <img
           src="/profile-effects/darth-vader.apng"
-          alt="Darth Vader Arrives — Discord profile effect"
+          alt="Darth Vader Arrives Discord profile effect"
           className="vader-effect-img h-full w-full object-cover opacity-100"
           draggable={false}
           aria-hidden
@@ -127,6 +128,7 @@ export function HomeClient({ posts }: { posts: ArticleCard[] }) {
           posts={posts}
         />
         <Works setRef={(el) => (sectionsRef.current[2] = el)} />
+        <ReverseEngineering setRef={(el) => (sectionsRef.current[7] = el)} />
         <Skills setRef={(el) => (sectionsRef.current[3] = el)} />
         <Connect setRef={(el) => (sectionsRef.current[4] = el)} />
         <Footer isDark={isDark} toggleTheme={toggleTheme} />
